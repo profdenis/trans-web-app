@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title> </title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="github.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<h1 id="web-programming-with-flask">Web Programming with Flask</h1>
+<h3 id="author-denis-rinfret">Author: Denis Rinfret</h3>
+<h2 id="the-flask-framework">The Flask Framework</h2>
+<h3 id="web-development-one-drop-at-a-time">Web Development One Drop at a Time</h3>
+<ul>
+<li>Documentation: https://flask.palletsprojects.com/en/2.2.x/</li>
+<li>Recommended book: <strong>Flask Web Development</strong>, by Miguel Grinberg, 2018, Published by O’Reilly Media.</li>
+<li><em>Flask</em> is a web development <em>micro</em>framework
+<ul>
+<li><em>micro</em> in microframework means Flask aims to keep the core <em>simple</em> but <em>extensible</em></li>
+<li><em>Flask won’t make many decisions for you</em>, such as what database to use.</li>
+<li>Those decisions that it does make, such as what templating engine to use, are easy to change</li>
+<li>Everything else is <em>up to you</em>, so that Flask can be everything you need and nothing you don’t</li>
+</ul></li>
+</ul>
+<h2 id="flask-basics">Flask Basics</h2>
+<h3 id="first-web-site">First Web Site</h3>
+<ul>
+<li>Flask’s <em>hello world</em> program is very simple compared to other web frameworks</li>
+<li>We need a Python environment with the <em>Flask</em> package installed
+<ul>
+<li>first option: use this command in a Python virtual environment
+<ul>
+<li><code>pip install Flask</code></li>
+<li>more details here: <a href="https://flask.palletsprojects.com/en/2.2.x/installation/#installation">https://flask.palletsprojects.com/en/2.2.x/installation/#installation</a></li>
+</ul></li>
+<li>second option (recommended): use PyCharm to simplify creating and updating Python virtual environments and Flask projects
+<ul>
+<li>create a new project</li>
+<li>select <em>Flask</em> as the project type</li>
+<li>select an existing Python virtual environment to use or create a new one
+<ul>
+<li>note: you should probably not create a new Python virtual environment for each project since you will have to reinstall all the necessary packages in each environment and use up more disk space in the process</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>PyCharm will automatically create a basic Flask project for you</li>
+<li>In the <code>app.py</code> file, you will have code similar to the code given below</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="im">from</span> flask <span class="im">import</span> Flask</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>app <span class="op">=</span> Flask(<span class="va">__name__</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/&#39;</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="kw">def</span> hello_world():  <span class="co"># put application&#39;s code here</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>    <span class="cf">return</span> <span class="st">&#39;Hello World!&#39;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>    app.run()</span></code></pre></div>
+<ul>
+<li>Code examples available in project <code>02_flask_basics</code>
+<ul>
+<li>Note that usually, a Flask project would contain only one <em>main</em> file, <code>app.py</code>, to start the development web server</li>
+<li>To reduce the number of different projects, many <em>main</em> files have been grouped together for the examples</li>
+<li>In real life, a project would have only 1 <code>app.py</code> file</li>
+</ul></li>
+</ul>
+<h3 id="code-overview">Code Overview</h3>
+<ul>
+<li>We always need to import the <code>Flask</code> class from the <code>flask</code> package</li>
+<li>We create a Flask <code>app</code> by creating an instance of the <code>Flask</code> class</li>
+<li><code>@app.route('/')</code> is a function decorator, applying to the following function definition
+<ul>
+<li>it means that when a request to access the root page <code>/</code> is sent to the server</li>
+<li>it will execute the <code>hello_world</code> function</li>
+<li>this function simply returns a string containing some simple HTML</li>
+<li>this string will be sent back to the client (probably a web browser) which sent the request</li>
+</ul></li>
+<li>If <code>__name__</code> is <code>__main__</code>, then we need to call <code>app.run()</code> to start the server
+<ul>
+<li>this will be the case when we run the <code>app.py</code> directly</li>
+</ul></li>
+<li>In production mode, the server is normally started differently (more on this later when discussing deployment strategies)</li>
+</ul>
+<h3 id="how-to-run">How to Run</h3>
+<ul>
+<li>Run the server</li>
+<li>In your browser, go to <code>http://127.0.0.1:5000</code></li>
+<li>You should see <em>Hello World!</em> in a <code>h1</code> header</li>
+<li>Modify the route to <code>@app.route('/hello')</code></li>
+<li>Reload in browser: did something change?</li>
+<li>By default in PyCharm, servers do <strong>not</strong> run in <em>debug</em> mode</li>
+<li>You need to restart the server to see the changes</li>
+<li>Or modify the run configuration to run the server in debug mode (check the <code>FLASK_DEBUG</code> option)</li>
+<li>In debug mode, it will detect changes to source code files and rerun the server automatically</li>
+</ul>
+<h3 id="returning-html">Returning HTML</h3>
+<h4 id="file-01_app.py">File: <code>01_app.py</code></h4>
+<p>Normally, we will not return simple text strings, but we will return HTML or JSON instead. We will see how to return HTML templates later.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="im">from</span> flask <span class="im">import</span> Flask</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>app <span class="op">=</span> Flask(<span class="va">__name__</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/index&#39;</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="kw">def</span> hello_world():</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>    <span class="cf">return</span> <span class="st">&#39;&lt;h1&gt;Hello Web App!&lt;/h1&gt;&#39;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>    app.run()</span></code></pre></div>
+<h3 id="url_for-example"><code>url_for</code> Example</h3>
+<h4 id="file-02_app.py">File: <code>02_app.py</code></h4>
+<ul>
+<li>Example with 2 endpoints
+<ul>
+<li>each <code>@app.route()</code> with its associated function is often called an <em>endpoint</em></li>
+</ul></li>
+<li>The <code>index</code> endpoint uses a format string to create an <code>a</code> element referring to the other endpoint</li>
+<li><code>url_for</code> takes a function name as its argument, and returns the route associated to it
+<ul>
+<li>in this case, it will return <code>/hello</code></li>
+</ul></li>
+<li>Why not write <code>/hello</code> directly instead of calling <code>url_for</code>?
+<ul>
+<li>in this simple example, we don’t need to use <code>url_for</code></li>
+<li>but in larger project, it’s better to use <code>url_for</code> in case we need to move endpoints around</li>
+<li>try changing the route for <code>hello_web_app</code>, and with <code>url_for</code>, you don’t need to change anything else</li>
+<li>without <code>url_for</code>, you would need to update every reference to it</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="im">from</span> flask <span class="im">import</span> Flask, url_for</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>app <span class="op">=</span> Flask(<span class="va">__name__</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/&#39;</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a><span class="kw">def</span> index():</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>    <span class="cf">return</span> <span class="ss">f&#39;&lt;a href=&quot;</span><span class="sc">{</span>url_for(<span class="st">&quot;hello_web_app&quot;</span>)<span class="sc">}</span><span class="ss">&quot;&gt;Hello Web App&lt;/a&gt;&#39;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/hello&#39;</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a><span class="kw">def</span> hello_web_app():</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>    <span class="cf">return</span> <span class="st">&#39;&lt;h1&gt;Hello Web App!&lt;/h1&gt;&#39;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a>    app.run()</span></code></pre></div>
+<h3 id="first-template">First Template</h3>
+<h4 id="files-03_app.py-and-03_index.html">Files: <code>03_app.py</code> and <code>03_index.html</code></h4>
+<ul>
+<li>Returning full HTML pages this way is a bad idea
+<ul>
+<li>it would take too much space in the source code</li>
+<li>it’s better to separate the logic code from the presentation code</li>
+</ul></li>
+<li>Use the <code>render_template</code> function to return the HTML code stored in an external file</li>
+<li>Usually, template files are stored in the <code>templates</code> folder</li>
+<li>By default, Flask uses the <em>jinja2</em> package as the template rendering engine</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="im">from</span> flask <span class="im">import</span> Flask, render_template</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>app <span class="op">=</span> Flask(<span class="va">__name__</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/&#39;</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="kw">def</span> index():</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&quot;03_index.html&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">&lt;html</span><span class="ot"> lang=</span><span class="st">&quot;en&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>    <span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&quot;UTF-8&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>    <span class="kw">&lt;title&gt;</span>First Template<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a><span class="kw">&lt;h1&gt;</span>First Template<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a><span class="kw">&lt;ul&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>    <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/hello&quot;</span><span class="kw">&gt;</span>/hello<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>    <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/goodbye&quot;</span><span class="kw">&gt;</span>/goodbye<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a><span class="kw">&lt;/ul&gt;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<ul>
+<li>This template is static, it will always be rendered the same way</li>
+<li>In general, templates are dynamic
+<ul>
+<li>variables can be passed to the template</li>
+<li>the template can include loops, conditionals, … to make the contents more dynamic</li>
+</ul></li>
+<li>Templates provide a skeleton for the page, the contents can change depending on the situation</li>
+<li>You can pass variables to a template in this way (file <code>04_app.py</code>)</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/&#39;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="kw">def</span> index():</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;04_index.html&#39;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>                           hello<span class="op">=</span>url_for(<span class="st">&#39;hello_web_app&#39;</span>),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>                           goodbye<span class="op">=</span>url_for(<span class="st">&#39;goodbye_web_app&#39;</span>))</span></code></pre></div>
+<ul>
+<li>To get the value of a variable in a template, use the double curly brackets notation <code>{{ }}</code></li>
+<li>File: <code>04_index.html</code></li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="kw">&lt;html</span><span class="ot"> lang=</span><span class="st">&quot;en&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>    <span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&quot;UTF-8&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>    <span class="kw">&lt;title&gt;</span>Second Template<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a><span class="kw">&lt;h1&gt;</span>Second Template<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a><span class="kw">&lt;ul&gt;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>    <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;{{ hello }}&quot;</span><span class="kw">&gt;</span>{{ hello }}<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a>    <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;{{ goodbye }}&quot;</span><span class="kw">&gt;</span>{{ goodbye}} <span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a><span class="kw">&lt;/ul&gt;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<ul>
+<li>You can also pass a list to a template (file <code>05_app.py</code>)</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/&#39;</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="kw">def</span> index():</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a>    links <span class="op">=</span> [url_for(<span class="st">&#39;hello_web_app&#39;</span>), url_for(<span class="st">&#39;goodbye_web_app&#39;</span>)]</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;05_index.html&#39;</span>, links<span class="op">=</span>links)</span></code></pre></div>
+<ul>
+<li>You will probably need to use a loop in the template to get all values in the list (file <code>05_index.html</code>)</li>
+<li>The curly bracket percent notation is used for many template constructs, such as loops and conditionals and many others</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="kw">&lt;html</span><span class="ot"> lang=</span><span class="st">&quot;en&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>    <span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&quot;UTF-8&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>    <span class="kw">&lt;title&gt;</span>Second Template<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a><span class="kw">&lt;h1&gt;</span>Second Template<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a><span class="kw">&lt;ul&gt;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>    {% for link in links %}</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a>    <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;{{ link }}&quot;</span><span class="kw">&gt;</span>{{ link }}<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a>    {% endfor %}</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true"></a><span class="kw">&lt;/ul&gt;</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<h3 id="dynamic-routes">Dynamic Routes</h3>
+<ul>
+<li>Routes can also be dynamic</li>
+<li>Routes can contain <em>variables</em> (kind of)</li>
+<li>There must be a corresponding parameter in the endpoint function (file <code>06_app.py</code>)</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/hello/&lt;name&gt;&#39;</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="kw">def</span> hello_name(name):</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;hello_name.html&#39;</span>, name<span class="op">=</span>name)</span></code></pre></div>
+<ul>
+<li><code>&lt;name&gt;</code> denotes a variable part of the route</li>
+<li>By default, it should be a string not containing any special URL characters (such as <code>/</code>)</li>
+<li>The <code>name</code> parameter will be equal to the part of the route matching <code>&lt;name&gt;</code></li>
+<li>The template can use the name variable as shown earlier, with the <code>{{ }}</code> notation</li>
+</ul>
+</body>
+</html>

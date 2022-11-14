@@ -1,0 +1,395 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  10pt,
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+  \setmainfont[]{Palatino}
+  \setsansfont[]{Helvetica}
+  \setmonofont[]{Menlo}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1.2in]{geometry}
+\usepackage{longtable,booktabs}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+
+
+\author{}
+\date{}
+
+\begin{document}
+
+\begin{center}
+\hypertarget{vanier-college}{%
+\section*{Vanier College}\label{vanier-college}}
+
+\hypertarget{faculty-of-continuing-education}{%
+\section*{Faculty of Continuing Education}\label{faculty-of-continuing-education}}
+\end{center}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+\endhead
+\textbf{Course title} & Transactional Web Applications &
+\textbf{Teacher} & Denis Rinfret\tabularnewline
+\textbf{Course \#} & 420-951-VA & \textbf{Email} &
+rinfretd@vaniercollege.qc.ca\tabularnewline
+\textbf{Section} & 05813 & \textbf{Semester} & Nov.14'22 to
+Feb.10'23\tabularnewline
+\textbf{Schedule} & As shown on LÉA & \textbf{Room} & Online
+(Zoom)\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{course-description}{%
+\subsection*{Course Description}\label{course-description}}
+
+Web applications play an increasingly important role in society. In this
+course, students design and build data-centric Web applications that
+support information transactions for commercial, communication, and
+other purposes. Using industry-standard Web-development technologies and
+best practices, students are guided in the development, implementation,
+and deployment of relevant Web applications.
+
+\hypertarget{courses-role-in-the-program}{%
+\subsection*{Course's role in the
+program}\label{courses-role-in-the-program}}
+
+This course completes the exploration of transactional Web applications
+that has been started in the Front-End Web Programming course by
+providing the tools to develop the code that resides on the Web
+application server and that interacts with a database management system
+or other information service as part of a complete transactional Web
+application.
+
+\hypertarget{statement-of-course-competencies}{%
+\subsection*{Statement of course
+competencies}\label{statement-of-course-competencies}}
+
+The competency \textbf{00SU Develop transactional Web applications} will
+be developed and finalized in this course. The competency was introduced
+and developed in the Front-End Web Programming course.
+
+\hypertarget{course-level-learning-outcome}{%
+\subsection*{Course-level Learning
+Outcome}\label{course-level-learning-outcome}}
+
+Develop transactional Web applications.
+
+\hypertarget{key-learning-outcomes}{%
+\subsection*{Key Learning Outcomes}\label{key-learning-outcomes}}
+
+Program transactional Web applications following the industry best
+practices.
+
+\begin{itemize}
+\tightlist
+\item
+  Apply a widely used design pattern, such as MVC
+\item
+  Implement authentication and authorization
+\item
+  Apply appropriate security measures
+\item
+  Implement database transactions (CRUD)
+\item
+  Retrieve data from online sources, such as from Web APIs (JSON)
+\item
+  Apply testing procedures such as automated testing in a
+  Behaviour-Driven Development methodology
+\item
+  Use proper collaboration tools for development and issue-tracking
+\item
+  Apply internationalization and localization techniques
+\end{itemize}
+
+\hypertarget{required-reading-material-textbook}{%
+\subsection*{Required reading material
+(Textbook)}\label{required-reading-material-textbook}}
+
+There is no required textbook for this course. Lecture notes will be
+provided through Omnivox, along with a list of recommended readings and
+tutorials. The list will be updated throughout the course as needed.
+
+\hypertarget{grading-scheme}{%
+\subsection*{Grading Scheme}\label{grading-scheme}}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Component & Grade & Approx. due date\tabularnewline
+\midrule
+\endhead
+Assignment 1 & 20\% & Dec.~12\tabularnewline
+Assignment 2 & 20\% & Jan.~16\tabularnewline
+Project (LIA) & 30\% & Feb.~10\tabularnewline
+Exam & 30\% & Jan.~27\tabularnewline
+\bottomrule
+\end{longtable}
+
+
+\hypertarget{late-work}{%
+\subsubsection*{Late work}\label{late-work}}
+
+A 10\% penalty for each late day will be applied on assignments
+submitted after the deadline. The project (LIA) and the exam cannot be
+submitted late. Exceptions can only be granted only according to the
+College policies and procedures.
+
+\hypertarget{project-learning-integration-assessment}{%
+\subsection*{Project (Learning Integration
+Assessment)}\label{project-learning-integration-assessment}}
+
+Students work in groups to create, implement, and deploy a transactional
+web application that incorporates the following features:
+
+\begin{itemize}
+\tightlist
+\item
+  User registration, authentication, and authorization, including
+  two-factor authentication with QR code.
+\item
+  Prevention of common security risks such as SQL injection and
+  cross-site scripting (XSS).
+\item
+  Implementing CRUD transactions
+\item
+  Internalization and localization
+\item
+  Reading data from online sources (Web APIs)
+\item
+  Developed using a Behaviour-Driven Development methodology, complete
+  with a test suite automated with an appropriate framework, such as
+  Behat.
+\end{itemize}
+
+Scope of the transactional web application:
+
+\begin{itemize}
+\item
+  The scope should be representative of a typical small scale eCommerce
+  application that can be developed by a team of two or three people.
+\item
+  Each student in this project implements ten user requirements, which
+  are expressed as complete user stories written by the students
+  themselves.
+\item
+  Upon completion, students present their web application and prepare a
+  project report.
+\end{itemize}
+
+\hypertarget{evaluation-criteria-for-the-learning-integration-assessment}{%
+\subsubsection*{Evaluation criteria for the learning integration
+assessment}\label{evaluation-criteria-for-the-learning-integration-assessment}}
+
+The following criteria are considered in the evaluation of the project
+deliverables:
+
+\begin{itemize}
+\tightlist
+\item
+  In the implementation:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Respect of the selected design pattern (such as MVC).
+  \item
+    Correct validation of data inputs (form data inputs).
+  \item
+    Adequate corrective actions to ensure platform security.
+  \item
+    Reasonable consideration of User Experience.
+  \item
+    Appropriate design of User Interface.
+  \item
+    Appropriate test suite.
+  \end{itemize}
+\item
+  In the documentation:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Correct presentation of work completed.
+  \item
+    Correct demonstration of product usability.
+  \end{itemize}
+\item
+  In the presentation, clear communication of
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Project objectives, need addressed, and target user-base.
+  \item
+    Difficulties met in the project and solutions.
+  \item
+    Lessons learned.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{deliverables}{%
+\subsubsection*{Deliverables}\label{deliverables}}
+
+\begin{itemize}
+\tightlist
+\item
+  Deliverable 1: Project proposal
+\item
+  Deliverable 2: HTML \& CSS
+\item
+  Deliverable 3: Project Implementation
+\item
+  Deliverable 4: Project report and presentation
+\end{itemize}
+
+\hypertarget{spli}{%
+\subsubsection*{SPLI}\label{spli}}
+
+The quality of English expression will be evaluated and be worth 10\% of
+the total as part of grading the LIA written reports and in-class
+presentations.
+
+\hypertarget{teaching-methodology}{%
+\subsection*{Teaching Methodology}\label{teaching-methodology}}
+
+Programming exercises and discussion on sample programs can take place
+either during the lecture time or lab period. All meetings will be held
+\textbf{online} at the time of the scheduled classes using Zoom, through
+the link provided on Omnivox.
+
+\hypertarget{college-policies-procedures}{%
+\subsection*{College policies \&
+Procedures}\label{college-policies-procedures}}
+
+There is a set of College policies and procedures covering the rights
+and responsibilities of both faculty and students. These cover grade
+review, student-faculty mediation, sexual harassment, standing and
+advancement, cheating and plagiarism, absences for religious holidays.
+
+Note that students who observe religious holidays during the semester
+must inform the instructor, in writing, before the end of the first day
+of online class. Consult \emph{Religious Holy Day Absences (see IPESA,
+section 2.2.6)}. It is your responsibility to be aware of the various
+policies and procedures governing your rights and obligations while you
+are attending Vanier College.
+
+Consult \emph{Student Academic Complaints (see 7210-8), Code of Conduct:
+\url{http://www.vaniercollege.qc.ca/bylaws-policies-procedures/code-of-conduct/}
+, Student Proficiency in the Language of Instruction (see 7210-33)} and
+as well as any teacher or course-specific rules/guidelines that students
+should adhere to (see Appendix 2).
+
+\hypertarget{respecting-privacy-during-synchronous-online-classes}{%
+\subsection*{Respecting Privacy during Synchronous Online
+Classes}\label{respecting-privacy-during-synchronous-online-classes}}
+
+The instructor might proceed for recording the student's image and voice
+in the context of online synchronous lectures or labs class. Students
+will be asked for their permission and agreement through form or MIO.
+The recording will only be available to other students in the group
+through and will be deleted once the block has ended.
+
+\hypertarget{respecting-intellectual-property-rights-in-online-classes}{%
+\subsection*{Respecting Intellectual Property Rights in Online
+Classes}\label{respecting-intellectual-property-rights-in-online-classes}}
+
+Any material produced as part of the course, including, but not limited
+to, any pre-recorded or live video is protected by copyright,
+intellectual property rights and image rights, regardless of the medium
+used. It is strictly forbidden to record, copy,redistribute, reproduce,
+republish, store in any way, retransmit or modify this material. Any
+contravention of these conditions of use may be subject to sanction(s)
+by the College under the Code of Conduct.
+
+\hypertarget{cheating-plagiarism}{%
+\subsection*{Cheating \& Plagiarism}\label{cheating-plagiarism}}
+
+Any form of cheating or plagiarism will result in a grade zero for that
+exam or assignment, and a letter from the course teacher will be placed
+in your file. A repeated offence may lead to more serious consequences.
+Consult The Vanier Student Writing Guide, the Vanier Catalogue, The
+Student Handbook, Cheating and Plagiarism (see 7210-31), Student
+Misconduct in the Classroom (7210-19) and your teacher for more
+information.
+
+\hypertarget{attendance-requirement}{%
+\subsection*{Attendance requirement}\label{attendance-requirement}}
+
+Students are responsible for material discussed during class time even
+when they are absent. The material covered in class may be different
+from what is presented in referenced material. Written and spoken class
+material may be part of exams. There is no grade for attendance, but
+students are responsible for in-class work and assessments whether they
+are present or absent.
+
+\hypertarget{weekly-breakdown-of-course-activities-tentative}{%
+\subsection*{Weekly breakdown of course activities
+(tentative)}\label{weekly-breakdown-of-course-activities-tentative}}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Week & Topics & Assessments\tabularnewline
+\midrule
+\endhead
+1 & Course Introduction, Python &\tabularnewline
+2, 3 & Flask basics, templates & Project proposal
+(Dec.~5)\tabularnewline
+4, 5 & Forms, sessions, authentication & Assignment 1
+(Dec.~12)\tabularnewline
+6, 7 & Database integration & Project: HTML \& CSS
+(Dec.~9)\tabularnewline
+8 & Security: 2FA, SQL injection, \ldots{} & Assignment 2
+(Jan.~16)\tabularnewline
+9 & Project work & Exam (Jan.~27)\tabularnewline
+10, 11 & Project work & Project presentation \& submission
+(Feb.~10)\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{document}

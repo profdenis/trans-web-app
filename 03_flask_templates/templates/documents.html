@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}{{ super() }} - Course Documents{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Course Documents</h1>
+        <table class="table table-dark table-striped table-hover table-responsive-md">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Topic</th>
+                    <th>Markdown</th>
+                    <th>HTML</th>
+                    <th>PDF</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doc in doc_list %}
+                    <tr>
+                        {% for col in doc[:2] %}
+                            <td>{{ col }}</td>
+                        {%  endfor %}
+                        {% for col in doc[2:] %}
+                            <td><a class="btn btn-info" href="{{ prefix }}{{ col }}">{{ col }}</a></td>
+                        {%  endfor %}
+                    </tr>
+                {%  endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %} <!-- content -->

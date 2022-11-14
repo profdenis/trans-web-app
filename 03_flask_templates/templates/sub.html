@@ -1,0 +1,12 @@
+{% extends "simple.html" %}
+
+{% block title %}Subtemplate{% endblock %}
+
+{% block contents %}
+{{ super() }}
+<h3>Subtemplate h3</h3>
+{% endblock %}
+
+{% block foot %}
+<a href="simple">Simple</a>
+{% endblock %}

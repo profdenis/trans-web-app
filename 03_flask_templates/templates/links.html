@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ super() }} - Links{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Links</h1>
+        <h3>Plain HTML list</h3>
+        <ol>
+            {% for link in links_list %}
+                <li><a href="{{ link[1] }}">{{ link[0] }}</a></li>
+            {% endfor %}
+
+        </ol>
+        <h3>Bootstrap List Group</h3>
+        <div class="list-group">
+            {% for link in links_list %}
+                <a href="{{ link[1] }}"
+                   class="list-group-item list-group-item-action">{{ link[0] }}</a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %} <!-- content -->
