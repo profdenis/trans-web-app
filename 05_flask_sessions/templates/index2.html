@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Session Examples</title>
+</head>
+<body>
+{% for message in get_flashed_messages() %}
+    {{ message }}<br/>
+{% endfor %}
+{% if current_user.is_authenticated %}
+    <h1>Welcome {{ current_user.id }}!</h1>
+    {%  if current_user.email and current_user.phone %}
+    <dl>
+        <dt>email</dt>
+        <dd>{{ current_user.email }}</dd>
+        <dt>phone</dt>
+        <dd>{{ current_user.phone }}</dd>
+    </dl>
+        {% endif %}
+    <a href="/logout">Logout</a>
+{% else %}
+    <h1>Welcome Stranger!</h1>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+{% endif %}
+<a href="/non_protected">Non Protected</a>
+<a href="/protected">Protected</a>
+</body>
+</html>

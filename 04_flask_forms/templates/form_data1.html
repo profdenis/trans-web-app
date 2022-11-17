@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{ super() }} - Form Data{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Form Data</h1>
+        <dl>
+            {% for key in form %}
+                <dt>{{ key }}</dt><dd>{{ form[key] }}</dd>
+            {% endfor %}
+        </dl>
+    {{ checkboxes }}
+    </div>
+{% endblock %} <!-- content -->

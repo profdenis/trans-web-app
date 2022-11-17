@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title> </title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="github.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<h1 id="flask-templates">Flask Templates</h1>
+<h3 id="author-denis-rinfret">Author: Denis Rinfret</h3>
+<h2 id="template-inheritance">Template Inheritance</h2>
+<ul>
+<li>Jinja2 supports <em>template inheritance</em>
+<ul>
+<li>create a base template that contains the common blocks of your website, such as
+<ul>
+<li>the <em>HTML DOCTYPE</em> and the <code>&lt;head&gt;</code> element</li>
+<li>the web page banner</li>
+<li>the navigation bar</li>
+<li>the footer</li>
+<li>etc…</li>
+</ul></li>
+<li>create one template for each page that extends the base template</li>
+<li>add the page specific contents to the sub-templates</li>
+</ul></li>
+<li>To facilitate adding page specific contents to each sub-template, define <em> blocks</em> in the base template</li>
+<li>Sub-templates can redefine these blocks
+<ul>
+<li>use <code>{% block head %}</code> to define the start of a block named <em>head</em> ( replace <em>head</em> by whatever is appropriate)</li>
+<li>use <code>{% endblock %}</code> to mark the end of a block</li>
+</ul></li>
+</ul>
+<h3 id="simple-template-inheritance-example">Simple Template Inheritance Example</h3>
+<ul>
+<li>Parent template
+<ul>
+<li>project <code>03_flask_templates</code>, file <code>simple.html</code></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">&lt;html</span><span class="ot"> lang=</span><span class="st">&quot;en&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="kw">&lt;head&gt;</span>{% block head %}</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    <span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&quot;UTF-8&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    <span class="kw">&lt;title&gt;</span>{% block title %}Simple Template Inheritance Example{% endblock</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>        %}<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    {% endblock %}</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>{% block contents %}</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="kw">&lt;h1&gt;</span>Simple h1<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>{% endblock %}</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>{% block foot %}</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;sub&quot;</span><span class="kw">&gt;</span>Subtemplate<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>{% endblock %}</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<figure>
+<img src="images/simple.png" alt="" /><figcaption>Simple</figcaption>
+</figure>
+<ul>
+<li>Child template
+<ul>
+<li>file <code>sub.html</code></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>{% extends &quot;simple.html&quot; %}</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>{% block title %}Subtemplate{% endblock %}</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>{% block contents %}</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>{{ super() }}</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="kw">&lt;h3&gt;</span>Subtemplate h3<span class="kw">&lt;/h3&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>{% endblock %}</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>{% block foot %}</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;simple&quot;</span><span class="kw">&gt;</span>Simple<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>{% endblock %}</span></code></pre></div>
+<ul>
+<li>A new title is defined in the <code>title</code> block</li>
+<li>An <code>h3</code> is added to the <code>contents</code> block
+<ul>
+<li><code>super()</code> is called to keep the parent template’s contents</li>
+</ul></li>
+<li>The <code>foot</code> block is replaced by a new link</li>
+<li>The <code>head</code> block is not modified directly (only the <code>title</code> sub-block is modified)</li>
+</ul>
+<figure>
+<img src="images/sub.png" alt="" /><figcaption>Sub-template</figcaption>
+</figure>
+<h3 id="bootstrap-template-example">Bootstrap Template Example</h3>
+<h4 id="file-base.html">File <code>base.html</code></h4>
+<ul>
+<li>This template uses Bootstrap 4</li>
+<li>Almost the same as a previous example (<code>bs4_base.html</code>), but with Jinja2 blocks added</li>
+</ul>
+<p><img src="images/base1.png" alt="Base" /> <img src="images/base2.png" alt="Base" /></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">&lt;html</span><span class="ot"> lang=</span><span class="st">&quot;en&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    {% block head %}</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>        <span class="kw">&lt;title&gt;</span>{% block title %}Trans Web App{% endblock %}<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>        <span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&quot;utf-8&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>        <span class="kw">&lt;meta</span><span class="ot"> name=</span><span class="st">&quot;viewport&quot;</span><span class="ot"> content=</span><span class="st">&quot;width=device-width, initial-scale=1&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>        <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> href=</span><span class="st">&quot;https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css&quot;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a><span class="ot">              integrity=</span><span class="st">&quot;sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N&quot;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a><span class="ot">              crossorigin=</span><span class="st">&quot;anonymous&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>        <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js&quot;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a><span class="ot">                integrity=</span><span class="st">&quot;sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj&quot;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a><span class="ot">                crossorigin=</span><span class="st">&quot;anonymous&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>        <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js&quot;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a><span class="ot">                integrity=</span><span class="st">&quot;sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct&quot;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a><span class="ot">                crossorigin=</span><span class="st">&quot;anonymous&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a>        <span class="kw">&lt;style&gt;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a>            body {</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true"></a>                <span class="kw">padding-top</span>: <span class="dv">50</span><span class="dt">px</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true"></a>            }</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true"></a>        <span class="kw">&lt;/style&gt;</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true"></a>    {% endblock %}</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true"></a>{% block navbar %}</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true"></a>    <span class="kw">&lt;nav</span><span class="ot"> class=</span><span class="st">&quot;navbar navbar-expand-md bg-dark navbar-dark fixed-top&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true"></a>        <span class="kw">&lt;a</span><span class="ot"> class=</span><span class="st">&quot;navbar-brand&quot;</span><span class="ot"> href=</span><span class="st">&quot;/&quot;</span><span class="kw">&gt;</span>Trans Web App<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true"></a>        <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;navbar-toggler&quot;</span><span class="ot"> type=</span><span class="st">&quot;button&quot;</span><span class="ot"> data-toggle=</span><span class="st">&quot;collapse&quot;</span><span class="ot"> data-target=</span><span class="st">&quot;#collapsibleNavbar&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true"></a>            <span class="kw">&lt;span</span><span class="ot"> class=</span><span class="st">&quot;navbar-toggler-icon&quot;</span><span class="kw">&gt;&lt;/span&gt;</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true"></a>        <span class="kw">&lt;/button&gt;</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true"></a>        <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;collapse navbar-collapse&quot;</span><span class="ot"> id=</span><span class="st">&quot;collapsibleNavbar&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true"></a>            <span class="kw">&lt;ul</span><span class="ot"> class=</span><span class="st">&quot;navbar-nav&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true"></a>                <span class="kw">&lt;li</span><span class="ot"> class=</span><span class="st">&quot;nav-item&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true"></a>                    <span class="kw">&lt;a</span><span class="ot"> class=</span><span class="st">&quot;nav-link&quot;</span><span class="ot"> href=</span><span class="st">&quot;/documents&quot;</span><span class="kw">&gt;</span>Course Documents<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true"></a>                <span class="kw">&lt;/li&gt;</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true"></a>                <span class="kw">&lt;li</span><span class="ot"> class=</span><span class="st">&quot;nav-item&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true"></a>                    <span class="kw">&lt;a</span><span class="ot"> class=</span><span class="st">&quot;nav-link&quot;</span><span class="ot"> href=</span><span class="st">&quot;/links&quot;</span><span class="kw">&gt;</span>Links<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true"></a>                <span class="kw">&lt;/li&gt;</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true"></a>                <span class="kw">&lt;li</span><span class="ot"> class=</span><span class="st">&quot;nav-item&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true"></a>                    <span class="kw">&lt;a</span><span class="ot"> class=</span><span class="st">&quot;nav-link&quot;</span><span class="ot"> href=</span><span class="st">&quot;/git&quot;</span><span class="kw">&gt;</span>Git Repos<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true"></a>                <span class="kw">&lt;/li&gt;</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true"></a>                <span class="kw">&lt;li</span><span class="ot"> class=</span><span class="st">&quot;nav-item&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true"></a>                    <span class="kw">&lt;a</span><span class="ot"> class=</span><span class="st">&quot;nav-link&quot;</span><span class="ot"> href=</span><span class="st">&quot;/contact&quot;</span><span class="kw">&gt;</span>Contact<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true"></a>                <span class="kw">&lt;/li&gt;</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true"></a>            <span class="kw">&lt;/ul&gt;</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true"></a>        <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true"></a>    <span class="kw">&lt;/nav&gt;</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true"></a>{% endblock %}</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true"></a><span class="kw">&lt;br&gt;</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true"></a></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true"></a>{% block content %}</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true"></a>    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true"></a>        <span class="kw">&lt;h1&gt;</span>Welcome to the <span class="kw">&lt;em&gt;</span>Transactional Web Applications<span class="kw">&lt;/em&gt;</span> course web site!<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true"></a>        <span class="kw">&lt;p&gt;</span>Follow the links in the navigation bar for more details.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true"></a>        <span class="kw">&lt;p&gt;</span>Please note that the source code for this website, written in Python using the Flask framework, is used</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true"></a>            as examples in the course. That&#39;s why some pages are not really necessary or contain multiple formats for</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true"></a>            the same data, such as the <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/links&quot;</span><span class="kw">&gt;</span>Links<span class="kw">&lt;/a&gt;</span> page.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true"></a>{% endblock %}</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true"></a></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<h4 id="file-git.html">File <code>git.html</code></h4>
+<ul>
+<li>Template rendered by the <code>/git</code> endpoint
+<ul>
+<li>extends the base template</li>
+<li>calls <code>super()</code> in the <code>title</code> block and adds a string to it</li>
+<li>the content block is completely redefined here</li>
+<li>the other blocks are left as-is</li>
+</ul></li>
+</ul>
+<figure>
+<img src="images/git.png" alt="" /><figcaption>assignments</figcaption>
+</figure>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>{% extends &quot;base.html&quot; %}</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>{% block title %}{{ super() }} - Git Repos{% endblock %}</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>{% block content %}</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>        <span class="kw">&lt;h1&gt;</span>Git Repos<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>        <span class="kw">&lt;p&gt;</span>Course documents are available on the</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>            <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;https://github.com/profdenis/trans-web-app&quot;</span><span class="ot"> target=</span><span class="st">&quot;_blank&quot;</span><span class="kw">&gt;</span>main Git repository<span class="kw">&lt;/a&gt;</span>.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a>{% endblock %} <span class="co">&lt;!-- content --&gt;</span></span></code></pre></div>
+<h4 id="file-contact.html">File <code>contact.html</code></h4>
+<ul>
+<li>Template rendered by the <code>/contact</code> endpoint
+<ul>
+<li>extends the base template</li>
+<li>it simply lists contact information in a <code>&lt;dl&gt;</code></li>
+</ul></li>
+</ul>
+<figure>
+<img src="images/contact.png" alt="" /><figcaption>Contact</figcaption>
+</figure>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>{% extends &quot;base.html&quot; %}</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>{% block title %}{{ super() }} - Contact{% endblock %}</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>{% block content %}</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>        <span class="kw">&lt;h1&gt;</span>Contact<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>        <span class="kw">&lt;dl</span><span class="ot"> class=</span><span class="st">&quot;row&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>            <span class="kw">&lt;dt</span><span class="ot"> class=</span><span class="st">&quot;col-sm-3&quot;</span><span class="kw">&gt;</span>Professor<span class="kw">&lt;/dt&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>            <span class="kw">&lt;dd</span><span class="ot"> class=</span><span class="st">&quot;col-sm-9&quot;</span><span class="kw">&gt;</span>Denis Rinfret<span class="kw">&lt;/dd&gt;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>            <span class="kw">&lt;dt</span><span class="ot"> class=</span><span class="st">&quot;col-sm-3&quot;</span><span class="kw">&gt;</span>Email<span class="kw">&lt;/dt&gt;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>            <span class="kw">&lt;dd</span><span class="ot"> class=</span><span class="st">&quot;col-sm-9&quot;</span><span class="kw">&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;mailto:denis@example.com&quot;</span><span class="kw">&gt;</span>denis@example.com<span class="kw">&lt;/a&gt;</span> <span class="kw">&lt;/dd&gt;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a>            <span class="kw">&lt;dt</span><span class="ot"> class=</span><span class="st">&quot;col-sm-3&quot;</span><span class="kw">&gt;</span>Office<span class="kw">&lt;/dt&gt;</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a>            <span class="kw">&lt;dd</span><span class="ot"> class=</span><span class="st">&quot;col-sm-9&quot;</span><span class="kw">&gt;</span>Home<span class="kw">&lt;/dd&gt;</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a>            <span class="kw">&lt;dt</span><span class="ot"> class=</span><span class="st">&quot;col-sm-3&quot;</span><span class="kw">&gt;</span>Office Hours<span class="kw">&lt;/dt&gt;</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true"></a>            <span class="kw">&lt;dd</span><span class="ot"> class=</span><span class="st">&quot;col-sm-9&quot;</span><span class="kw">&gt;</span>To be announced<span class="kw">&lt;/dd&gt;</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true"></a>        <span class="kw">&lt;/dl&gt;</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true"></a>{% endblock %} <span class="co">&lt;!-- content --&gt;</span></span></code></pre></div>
+<h4 id="file-links.html">File <code>links.html</code></h4>
+<ul>
+<li>Template rendered by the <code>/links</code> endpoint
+<ul>
+<li>extends the base template</li>
+<li>this example shows 2 ways to list a number of files using a <code>for</code> loop</li>
+<li>normally, only 1 of the 2 would be used in a page</li>
+</ul></li>
+</ul>
+<figure>
+<img src="images/links.png" alt="" /><figcaption>Slides</figcaption>
+</figure>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>{% extends &quot;base.html&quot; %}</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>{% block title %}{{ super() }} - Links{% endblock %}</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>{% block content %}</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>        <span class="kw">&lt;h1&gt;</span>Links<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>        <span class="kw">&lt;h3&gt;</span>Plain HTML list<span class="kw">&lt;/h3&gt;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a>        <span class="kw">&lt;ol&gt;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a>            {% for link in links_list %}</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a>                <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;{{ link[1] }}&quot;</span><span class="kw">&gt;</span>{{ link[0] }}<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true"></a>            {% endfor %}</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true"></a>        <span class="kw">&lt;/ol&gt;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true"></a>        <span class="kw">&lt;h3&gt;</span>Bootstrap List Group<span class="kw">&lt;/h3&gt;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true"></a>        <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;list-group&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true"></a>            {% for link in links_list %}</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true"></a>                <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;{{ link[1] }}&quot;</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true"></a><span class="ot">                   class=</span><span class="st">&quot;list-group-item list-group-item-action&quot;</span><span class="kw">&gt;</span>{{ link[0] }}<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true"></a>            {% endfor %}</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true"></a>        <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true"></a>{% endblock %} <span class="co">&lt;!-- content --&gt;</span></span></code></pre></div>
+<h4 id="generating-a-plain-html-list">Generating a Plain HTML List</h4>
+<ul>
+<li><code>links_list</code> is a Python list containing tuples of the form <em>(text, href)</em>, where
+<ul>
+<li><em>text</em> is the link text to be displayed, and</li>
+<li><em>href</em> is the URL</li>
+</ul></li>
+<li>So we loop over all the tuples in the list with a <code>for</code> loop</li>
+<li>And we build an <code>&lt;a&gt;</code> element using
+<ul>
+<li><code>{{ link[1] }}</code> to get the value of <code>href</code>, and</li>
+<li><code>{{ link[0] }}</code> to get the text</li>
+</ul></li>
+</ul>
+<h4 id="generating-a-bootstrap-list-group">Generating a Bootstrap List Group</h4>
+<ul>
+<li>We use the same <code>for</code> loop as before, except that the loop is located inside a <code>&lt;div class="list-group"&gt;</code></li>
+<li>The <code>&lt;a&gt;</code> element is generated in the same way, except that we need to add a couple Bootstrap classes to display each link correctly
+<ul>
+<li><code>class="list-group-item list-group-item-action"&gt;</code></li>
+</ul></li>
+</ul>
+<h4 id="the-links-endpoint">The <code>/links</code> Endpoint</h4>
+<ul>
+<li>For now, we build a list of tuples for each slide manually in the endpoint</li>
+<li>In the <code>documents</code> endpoint, the list will be built with data read from a CSV file</li>
+<li>How to read data from a database will be covered later on</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/links&#39;</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="kw">def</span> slides():</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>    prefix <span class="op">=</span> <span class="st">&#39;/static/&#39;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>    links_list <span class="op">=</span> [(<span class="st">&#39;Python&#39;</span>, <span class="st">&#39;https://www.python.org&#39;</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>                  (<span class="st">&#39;Flask&#39;</span>, <span class="st">&#39;https://flask.palletsprojects.com/en/2.2.x/&#39;</span>),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>                  (<span class="st">&#39;PyCharm&#39;</span>, <span class="st">&#39;https://www.jetbrains.com/pycharm/&#39;</span>)]</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;links.html&#39;</span>, links_list<span class="op">=</span>links_list)</span></code></pre></div>
+<h5 id="notes">Notes</h5>
+<ul>
+<li>These files are <em>static</em> files, not executed or processed by Flask in any way</li>
+<li>Static files are usually put inside the <code>static/</code> folder</li>
+<li>Flask has a special <code>/static/&lt;file_to_be_returned_as_is&gt;</code> endpoint to handle these</li>
+<li>In a live deployment, the web server (not Flask) will serve the static files to get better performance</li>
+</ul>
+<h4 id="file-documents.html">File <code>documents.html</code></h4>
+<ul>
+<li>Template rendered by the <code>/documents</code> endpoint
+<ul>
+<li>extends the base template</li>
+<li>it builds a table from a Python list passed to the template</li>
+<li>data read from a CSV file is used to build the list</li>
+<li>the contents of this CSV file is given next</li>
+<li>the first column is the <em>id</em>, the second is the <em>topic</em>, followed by 3 file names, one for each format:
+<ul>
+<li>Markdown</li>
+<li>HTML</li>
+<li>PDF</li>
+</ul></li>
+</ul></li>
+<li>the endpoint code and CSV files are shown after the screenshot but before the template</li>
+</ul>
+<figure>
+<img src="images/documents.png" alt="" /><figcaption>Documents</figcaption>
+</figure>
+<h4 id="file-documents.csv">File: <code>documents.csv</code></h4>
+<pre><code>id,topic,markdown,html,pdf
+0,Course Outline,00_outline.md,00_outline.html,00_outline.pdf
+1,Python,01_python.md,01_python.html,01_python.pdf
+2,Flask basics,02_flask_basics.md,02_flask_basics.html,02_flask_basics.html
+3,Flask templates,03_flask_templates.md,03_flask_templates.html,03_flask_templates.html</code></pre>
+<h4 id="the-documents-endpoint">The <code>/documents</code> Endpoint</h4>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/documents&#39;</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="kw">def</span> documents():</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>    <span class="co"># </span><span class="al">TODO</span><span class="co">: put the prefix in the app config dictionary</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>    prefix <span class="op">=</span> <span class="st">&#39;/static/&#39;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>    <span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;data/documents.csv&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>        doc_list <span class="op">=</span> <span class="bu">list</span>(csv.reader(f))[<span class="dv">1</span>:]</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;documents.html&#39;</span>, doc_list<span class="op">=</span>doc_list, prefix<span class="op">=</span>prefix)</span></code></pre></div>
+<h4 id="file-documents.html-1">File <code>documents.html</code></h4>
+<div class="sourceCode" id="cb10"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>{% extends &quot;base.html&quot; %}</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>{% block title %}{{ super() }} - Course Documents{% endblock %}</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>{% block content %}</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a>    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a>        <span class="kw">&lt;h1&gt;</span>Course Documents<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a>        <span class="kw">&lt;table</span><span class="ot"> class=</span><span class="st">&quot;table table-dark table-striped table-hover table-responsive-md&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a>            <span class="kw">&lt;thead&gt;</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a>                <span class="kw">&lt;tr&gt;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a>                    <span class="kw">&lt;th&gt;&lt;/th&gt;</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true"></a>                    <span class="kw">&lt;th&gt;</span>Topic<span class="kw">&lt;/th&gt;</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true"></a>                    <span class="kw">&lt;th&gt;</span>Markdown<span class="kw">&lt;/th&gt;</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true"></a>                    <span class="kw">&lt;th&gt;</span>HTML<span class="kw">&lt;/th&gt;</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true"></a>                    <span class="kw">&lt;th&gt;</span>PDF<span class="kw">&lt;/th&gt;</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true"></a>                <span class="kw">&lt;/tr&gt;</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true"></a>            <span class="kw">&lt;/thead&gt;</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true"></a>            <span class="kw">&lt;tbody&gt;</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true"></a>                {% for doc in doc_list %}</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true"></a>                    <span class="kw">&lt;tr&gt;</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true"></a>                        {% for col in doc[:2] %}</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true"></a>                            <span class="kw">&lt;td&gt;</span>{{ col }}<span class="kw">&lt;/td&gt;</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true"></a>                        {%  endfor %}</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true"></a>                        {% for col in doc[2:] %}</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true"></a>                            <span class="kw">&lt;td&gt;&lt;a</span><span class="ot"> class=</span><span class="st">&quot;btn btn-info&quot;</span><span class="ot"> href=</span><span class="st">&quot;{{ prefix }}{{ col }}&quot;</span><span class="kw">&gt;</span>{{ col }}<span class="kw">&lt;/a&gt;&lt;/td&gt;</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true"></a>                        {%  endfor %}</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true"></a>                    <span class="kw">&lt;/tr&gt;</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true"></a>                {%  endfor %}</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true"></a>            <span class="kw">&lt;/tbody&gt;</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true"></a>        <span class="kw">&lt;/table&gt;</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true"></a>{% endblock %} <span class="co">&lt;!-- content --&gt;</span></span></code></pre></div>
+</body>
+</html>

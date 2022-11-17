@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Session Examples</title>
+</head>
+<body>
+{% if username %}
+    <h1>Welcome {{ username }}!</h1>
+    <a href="/logout">Logout</a>
+{% else %}
+    <h1>Welcome Stranger!</h1>
+    <a href="/login">Login</a>
+{% endif %}
+</body>
+</html>

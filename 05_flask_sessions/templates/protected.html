@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Session Examples</title>
+</head>
+<body>
+{% for message in get_flashed_messages() %}
+    {{ message }}<br/>
+{% endfor %}
+
+<h1>You have to be authenticated to view this</h1>
+<h3>current_user.id: {{ current_user.id }}</h3>
+<h3>current_user.is_authenticated: {{ current_user.is_authenticated }}</h3>
+</body>
+</html>

@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title> </title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="github.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<h1 id="web-programming-with-flask">Web Programming with Flask</h1>
+<h3 id="author-denis-rinfret">Author: Denis Rinfret</h3>
+<h2 id="sending-data-to-the-web-server-using-html-forms">Sending Data to the Web Server Using HTML Forms</h2>
+<h3 id="example-contact-form">Example: Contact Form</h3>
+<ul>
+<li>Project: <code>04_flask_forms</code>, file <code>01_contact_form.html</code></li>
+</ul>
+&lt;!DOCTYPE html&gt;
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>
+Contact Form
+</title>
+</head>
+<body>
+<h1>
+Contact Form
+</h1>
+<!-- The action is usually an endpoint on the server to handle the submitted data -->
+<form action="/contact_form" method="post">
+<label>Your name <input type="text" name="name"/></label><br/> <label>Your email address <input type="email" name="email"/></label><br/> <label>Your message
+<textarea name="message"></textarea>
+</label><br/> <button type="submit">Send</button> <button type="reset">Clear</button>
+</form>
+</body>
+</html>
+<div class="sourceCode" id="cb1"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">&lt;html</span><span class="ot"> lang=</span><span class="st">&quot;en&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    <span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&quot;UTF-8&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    <span class="kw">&lt;title&gt;</span>Contact Form<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="kw">&lt;h1&gt;</span>Contact Form<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a><span class="co">&lt;!-- The action is usually an endpoint on the server to handle the submitted data --&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a><span class="kw">&lt;form</span><span class="ot"> action=</span><span class="st">&quot;/contact_form&quot;</span><span class="ot"> method=</span><span class="st">&quot;post&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>    <span class="kw">&lt;label&gt;</span>Your name <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span><span class="ot"> name=</span><span class="st">&quot;name&quot;</span><span class="kw">/&gt;&lt;/label&gt;&lt;br/&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>    <span class="kw">&lt;label&gt;</span>Your email address <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;email&quot;</span><span class="ot"> name=</span><span class="st">&quot;email&quot;</span><span class="kw">/&gt;&lt;/label&gt;&lt;br/&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>    <span class="kw">&lt;label&gt;</span>Your message <span class="kw">&lt;textarea</span><span class="ot"> name=</span><span class="st">&quot;message&quot;</span><span class="kw">&gt;&lt;/textarea&gt;&lt;/label&gt;&lt;br/&gt;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>    <span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="kw">&gt;</span>Send<span class="kw">&lt;/button&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>    <span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;reset&quot;</span><span class="kw">&gt;</span>Clear<span class="kw">&lt;/button&gt;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a><span class="kw">&lt;/form&gt;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<h4 id="the-form-element">The <code>form</code> element</h4>
+<ul>
+<li>The 2 most important attributes to the <code>form</code> element are the <code>action</code> and <code>method</code> attributes</li>
+<li>The <code>action</code> specifies where the form data will be sent
+<ul>
+<li>in this case, it will send the data to the <code>/contact_form</code> endpoint</li>
+</ul></li>
+<li>The <code>method</code> specifies how to send the data
+<ul>
+<li>in this case, it will send the data using the <em>POST</em> method</li>
+<li>the default method is <em>GET</em>, which should <strong>not</strong> normally be used by forms in most cases</li>
+<li>the <code>/contact_form</code> endpoint should be configured to handle POST requests</li>
+<li>by default, endpoints will only accept GET requests</li>
+</ul></li>
+</ul>
+<h4 id="labels-and-inputs">Labels and Inputs</h4>
+<ul>
+<li>It is common to label the input elements with a <code>label</code> element containing the input element</li>
+<li>An <code>input</code> of type <code>text</code> is a simple text box, containing only 1 line of input text</li>
+<li>An <code>input</code> of type <code>email</code> is a specialised version of the simple text box: it differs only in the way the data will be validated</li>
+<li>A <code>textarea</code> is a generalisation of the simple text box: it supports multiple rows of input text</li>
+<li>In order for the data input to be sent to the server, the <code>name</code> attributes have to be set to names unique within the form (some exceptions to this rule will be covered later on)
+<ul>
+<li>without a <code>name</code> attribute, the input data will not be sent</li>
+</ul></li>
+<li>The last 2 form elements are buttons
+<ul>
+<li>the first button will <code>submit</code> the form data to the <code>action</code> specified in the <code>form</code> element</li>
+<li>the second button will clear, or <code>reset</code> the form data</li>
+<li>the text shown on the buttons will be, respectively, <em>Send</em> and <em>Clear</em></li>
+</ul></li>
+</ul>
+<h4 id="and-contact_form-endpoints"><code>/</code> and <code>/contact_form</code> endpoints</h4>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/&#39;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="kw">def</span> contact_form():</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;01_contact_form.html&#39;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/contact_form&#39;</span>, methods<span class="op">=</span>[<span class="st">&#39;POST&#39;</span>])</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="kw">def</span> handle_contact_form():</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>    <span class="co"># we should normally validate the submitted form data before using it</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>    <span class="co"># by default, the template rendering will be considered unsafe,</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>    <span class="co"># so the data will be escaped</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;03_contact_response.html&#39;</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>                           data<span class="op">=</span>request.form)</span></code></pre></div>
+<ul>
+<li>The <code>/</code> endpoint simply renders the template containing the form, which is just the HTML file shown above</li>
+<li>The <code>/contact_form</code> endpoint will handle the POST request coming from the form submission</li>
+<li>The <code>methods=['POST']</code> argument to the <code>route</code> function specifies that this endpoint will only handle POST requests
+<ul>
+<li>GET requests will not be accepted</li>
+</ul></li>
+<li>The only thing we do, for now, is to render the <code>03_contact_response.html</code> template with the form data that was submitted
+<ul>
+<li>to access the submitted form data, simply use <code>request.form</code></li>
+<li>request must be imported from the <code>flask</code> package</li>
+<li><code>request.form</code> is a special kind of object holding the form data, and its properties correspond to the <code>name</code> attributes specified in the form</li>
+</ul></li>
+</ul>
+<h4 id="file-03_contact_response.html">File: <code>03_contact_response.html</code></h4>
+<div class="sourceCode" id="cb3"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">&lt;html</span><span class="ot"> lang=</span><span class="st">&quot;en&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    <span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&quot;UTF-8&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    <span class="kw">&lt;title&gt;</span>Message Received<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a><span class="kw">&lt;h1&gt;</span>Thank you <span class="kw">&lt;em&gt;</span>{{ data.name }}<span class="kw">&lt;/em&gt;</span> for your message!<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a><span class="kw">&lt;p&gt;</span>We will contact you shortly.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a><span class="kw">&lt;p&gt;</span>Email: {{ data.email }}<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a><span class="kw">&lt;p&gt;</span>Message: {{ data.message }}<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<p><img src="images/contact_form1.png" alt="Contact Form" /> <img src="images/contact_response1.png" alt="Contact Response" /></p>
+<h4 id="do-not-trust-the-data-sent-to-the-server">Do Not Trust the Data Sent to the Server!</h4>
+<ul>
+<li>By default, Flask and Jinja2 do not trust the data sent to the server</li>
+<li>This is the safe and smart way to deal with form data</li>
+<li>Before inserting the form data in the template, it will <em>escape</em> the data
+<ul>
+<li>the message <code>Hello &lt;h1&gt;Hello&lt;/h1&gt;! How are &lt;em&gt;you&lt;/em&gt;?</code> is not safe, it can mess up the template if not escaped properly <img src="images/contact_response3.png" alt="Contact Response" /></li>
+</ul></li>
+<li>Escaping the string <code>Hello &lt;h1&gt;Hello&lt;/h1&gt;! How are &lt;em&gt;you&lt;/em&gt;?</code> will give the string <code>Hello &amp;lt;h1&amp;gt;Hello&amp;lt;/h1&amp;gt;! How are &amp;lt;em&amp;gt;you&amp;lt;/em&amp;gt;?</code></li>
+<li>In this way, the form data will not mess up the HTML in the template</li>
+<li>Instead of a simple <code>h1</code> element, someone could try to inject some JavaScript code and try to take advantage of the client and/or server</li>
+<li>If the data to be inserted in the template can be trusted, then we can use the <code>safe</code> template decorator in this way:
+<ul>
+<li><code>&lt;p&gt;Message: {{ data.message|safe }}&lt;/p&gt;</code></li>
+<li>in this case, <code>data.message</code> will not be escaped, and we will get the result shown in the previous screenshot</li>
+</ul></li>
+</ul>
+<h4 id="contact_form2-endpoint"><code>/contact_form2</code> endpoint</h4>
+<ul>
+<li>Usually, we should not only echo the form data back to the client, we should process the data in some way</li>
+<li>For our example, we could save the form data in a file or in a database, and/or send some email to the website owner</li>
+<li>Since interacting with a database and sending emails have not been covered yet, we will, for now, save the form data in a CSV file</li>
+<li>The <code>/form2</code> endpoint renders the <code>02_contact_form.html</code> template
+<ul>
+<li>it contains a slightly different version of the contact form</li>
+<li>the form data will be sent to the <code>/contact_form2</code> endpoint</li>
+<li>the result return to the client is the same as before, but information is saved a file before returning</li>
+<li>in practice, it should not be done this way since it will be inefficient and unsafe, especially for many concurrent executions: access to the file is not controlled</li>
+</ul></li>
+</ul>
+<p><img src="images/contact_form2.png" alt="Contact Form 2" /> <img src="images/contact_response2.png" alt="Contact Response 2" /></p>
+<h4 id="contact_form2-endpoint-1"><code>/contact_form2</code> Endpoint</h4>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/contact_form2&#39;</span>, methods<span class="op">=</span>[<span class="st">&#39;POST&#39;</span>])</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="kw">def</span> handle_contact_form2():</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>    <span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;data/messages.csv&#39;</span>, <span class="st">&#39;a&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>        writer <span class="op">=</span> csv.writer(f)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>        writer.writerow([request.form[<span class="st">&#39;name&#39;</span>],</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>                         request.form[<span class="st">&#39;email&#39;</span>],</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>                         request.form[<span class="st">&#39;message&#39;</span>]])</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;03_contact_response.html&#39;</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>                           data<span class="op">=</span>request.form)</span></code></pre></div>
+<h4 id="file-messages.csv">File <code>messages.csv</code></h4>
+<pre><code>Denis,denis@example.com,Hello
+Denis,denis@example.com,Hello &lt;h1&gt;Hello&lt;/h1&gt;! How are &lt;it&gt;you&lt;/it&gt;?</code></pre>
+<h4 id="contact-form-file-02_contact_form.html">Contact Form, File <code>02_contact_form.html</code></h4>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="kw">&lt;html</span><span class="ot"> lang=</span><span class="st">&quot;en&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>    <span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&quot;UTF-8&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>    <span class="kw">&lt;title&gt;</span>Contact Form<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a><span class="kw">&lt;h1&gt;</span>Contact Form<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a><span class="co">&lt;!-- The action is usually an endpoint on the server to handle the submitted data --&gt;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a><span class="kw">&lt;form</span><span class="ot"> action=</span><span class="st">&quot;/contact_form2&quot;</span><span class="ot"> method=</span><span class="st">&quot;post&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a>    <span class="kw">&lt;table&gt;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true"></a>        <span class="kw">&lt;tr&gt;</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true"></a>            <span class="kw">&lt;td&gt;&lt;label&gt;</span>Your name<span class="kw">&lt;/label&gt;&lt;/td&gt;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true"></a>            <span class="kw">&lt;td&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span><span class="ot"> name=</span><span class="st">&quot;name&quot;</span><span class="kw">/&gt;&lt;/td&gt;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true"></a>        <span class="kw">&lt;/tr&gt;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true"></a>        <span class="kw">&lt;tr&gt;</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true"></a>            <span class="kw">&lt;td&gt;&lt;label&gt;</span>Your email address <span class="kw">&lt;/label&gt;&lt;/td&gt;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true"></a>            <span class="kw">&lt;td&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;email&quot;</span><span class="ot"> name=</span><span class="st">&quot;email&quot;</span><span class="kw">/&gt;&lt;/td&gt;</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true"></a>        <span class="kw">&lt;/tr&gt;</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true"></a>        <span class="kw">&lt;tr&gt;</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true"></a>            <span class="kw">&lt;td&gt;&lt;label&gt;</span>Your message <span class="kw">&lt;/label&gt;&lt;/td&gt;</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true"></a>            <span class="kw">&lt;td&gt;&lt;textarea</span><span class="ot"> name=</span><span class="st">&quot;message&quot;</span><span class="ot"> rows=</span><span class="st">&quot;10&quot;</span><span class="ot"> cols=</span><span class="st">&quot;40&quot;</span><span class="kw">&gt;&lt;/textarea&gt;&lt;/td&gt;</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true"></a>        <span class="kw">&lt;/tr&gt;</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true"></a>        <span class="kw">&lt;tr&gt;</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true"></a>            <span class="kw">&lt;td&gt;&lt;/td&gt;</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true"></a>            <span class="kw">&lt;td&gt;</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true"></a>                <span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="kw">&gt;</span>Send<span class="kw">&lt;/button&gt;</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true"></a>                <span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;reset&quot;</span><span class="kw">&gt;</span>Clear<span class="kw">&lt;/button&gt;</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true"></a>            <span class="kw">&lt;/td&gt;</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true"></a>        <span class="kw">&lt;/tr&gt;</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true"></a>    <span class="kw">&lt;/table&gt;</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true"></a></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true"></a></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true"></a><span class="kw">&lt;/form&gt;</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<h3 id="get-vs.-post-requests">GET vs. POST Requests</h3>
+<ul>
+<li>W3Schools <em>HTTP Methods</em> https://www.w3schools.com/tags/ref_httpmethods.asp</li>
+<li>The two most common HTTP methods are: GET and POST.</li>
+</ul>
+<h4 id="what-is-http">What is HTTP?</h4>
+<ul>
+<li>The Hypertext Transfer Protocol (HTTP) is designed to enable communications between clients and servers.</li>
+<li>HTTP works as a request-response protocol between a client and server.</li>
+<li>A web browser may be the client, and an application on a computer that hosts a web site may be the server.</li>
+<li>Example:
+<ul>
+<li>A client (browser) submits an HTTP request to the server</li>
+<li>then the server returns a response to the client</li>
+<li>the response contains status information about the request and may also contain the requested content.</li>
+</ul></li>
+</ul>
+<figure>
+<img src="https://www.w3schools.com/images/w3schools80x15.gif" alt="" /><figcaption>W3Schools</figcaption>
+</figure>
+<h4 id="http-methods">HTTP Methods</h4>
+<ul>
+<li>GET</li>
+<li>POST</li>
+<li>PUT</li>
+<li>HEAD</li>
+<li>DELETE</li>
+<li>PATCH</li>
+<li>OPTIONS</li>
+</ul>
+<figure>
+<img src="https://www.w3schools.com/images/w3schools80x15.gif" alt="" /><figcaption>W3Schools</figcaption>
+</figure>
+<h4 id="the-get-method">The GET Method</h4>
+<ul>
+<li>GET is used to request data from a specified resource.</li>
+<li>GET is one of the most common HTTP methods.</li>
+<li>Note that the query string (name/value pairs) is sent in the URL of a GET request:
+<ul>
+<li><code>test/demo_form.php?name1=value1&amp;name2=value2</code></li>
+</ul></li>
+<li>Some other notes on GET requests:
+<ul>
+<li>GET requests can be cached</li>
+<li>GET requests remain in the browser history</li>
+<li>GET requests can be bookmarked</li>
+<li>GET requests should never be used when dealing with sensitive data</li>
+<li>GET requests have length restrictions</li>
+<li>GET requests is only used to request data (not modify)</li>
+</ul></li>
+</ul>
+<figure>
+<img src="https://www.w3schools.com/images/w3schools80x15.gif" alt="" /><figcaption>W3Schools</figcaption>
+</figure>
+<h4 id="the-post-method">The POST Method</h4>
+<ul>
+<li>POST is used to send data to a server to create/update a resource.</li>
+<li>The data sent to the server with POST is stored in the request body of the HTTP request:</li>
+</ul>
+<p><code>POST /test/demo_form.php HTTP/1.1 Host: w3schools.com name1=value1&amp;name2=value2</code></p>
+<ul>
+<li>POST is one of the most common HTTP methods.</li>
+<li>Some other notes on POST requests:
+<ul>
+<li>POST requests are never cached</li>
+<li>POST requests do not remain in the browser history</li>
+<li>POST requests cannot be bookmarked</li>
+<li>POST requests have no restrictions on data length</li>
+</ul></li>
+</ul>
+<figure>
+<img src="https://www.w3schools.com/images/w3schools80x15.gif" alt="" /><figcaption>W3Schools</figcaption>
+</figure>
+<h4 id="get-vs.-post">GET vs. POST</h4>
+<table class="w3-table-all notranslate">
+<tbody>
+<tr>
+<th style="width:30%">
+ 
+</th>
+<th style="width:35%">
+GET
+</th>
+<th>
+POST
+</th>
+</tr>
+<tr>
+<td>
+BACK button/Reload
+</td>
+<td>
+Harmless
+</td>
+<td>
+Data will be re-submitted (the browser should alert the user that the data are about to be re-submitted)
+</td>
+</tr>
+<tr>
+<td>
+Bookmarked
+</td>
+<td>
+Can be bookmarked
+</td>
+<td>
+Cannot be bookmarked
+</td>
+</tr>
+<tr>
+<td>
+Cached
+</td>
+<td>
+Can be cached
+</td>
+<td>
+Not cached
+</td>
+</tr>
+<tr>
+<td>
+Encoding type
+</td>
+<td>
+application/x-www-form-urlencoded
+</td>
+<td>
+application/x-www-form-urlencoded or multipart/form-data. Use multipart encoding for binary data
+</td>
+</tr>
+<tr>
+<td>
+History
+</td>
+<td>
+Parameters remain in browser history
+</td>
+<td>
+Parameters are not saved in browser history
+</td>
+</tr>
+</tbody>
+</table>
+<figure>
+<img src="https://www.w3schools.com/images/w3schools80x15.gif" alt="" /><figcaption>W3Schools</figcaption>
+</figure>
+<h4 id="get-vs.-post-1">GET vs. POST</h4>
+<table class="w3-table-all notranslate">
+<tbody>
+<tr>
+<th style="width:30%">
+ 
+</th>
+<th style="width:35%">
+GET
+</th>
+<th>
+POST
+</th>
+</tr>
+<tr>
+<td>
+Restrictions on data length
+</td>
+<td>
+Yes, when sending data, the GET method adds the data to the URL; and the length of a URL is limited (maximum URL length is 2048 characters)
+</td>
+<td>
+No restrictions
+</td>
+</tr>
+<tr>
+<td>
+Restrictions on data type
+</td>
+<td>
+Only ASCII characters allowed
+</td>
+<td>
+No restrictions. Binary data is also allowed
+</td>
+</tr>
+<tr>
+<td>
+Security
+</td>
+<td>
+GET is less secure compared to POST because data sent is part of the URL<br> <br> Never use GET when sending passwords or other sensitive information!
+</td>
+<td>
+POST is a little safer than GET because the parameters are not stored in browser history or in web server logs
+</td>
+</tr>
+<tr>
+<td>
+Visibility
+</td>
+<td>
+Data is visible to everyone in the URL
+</td>
+<td>
+Data is not displayed in the URL
+</td>
+</tr>
+</tbody>
+</table>
+<figure>
+<img src="https://www.w3schools.com/images/w3schools80x15.gif" alt="" /><figcaption>W3Schools</figcaption>
+</figure>
+<h4 id="reloading-a-page-with-posted-data">Reloading a Page With POSTed Data</h4>
+<ul>
+<li>When reloading a page having POSTed data associated to it, depending on which browser you use,
+<ul>
+<li>it will ask you to confirm if you want to resubmit the data to the server
+<ul>
+<li>if yes, it will resubmit the data</li>
+</ul></li>
+<li>or it will resubmit the data without asking for your confirmation</li>
+</ul></li>
+<li>In both cases, you may end up with duplicated data on the server, depending on how the form submission is handled</li>
+<li>When no precautions are implemented (like in the previous examples), you will end up with duplicated data</li>
+<li>When forms are handled correctly (like in the following examples), no duplicated data will end up on the server (at least not because of form resubmission through a reload)</li>
+</ul>
+<h3 id="proper-form-submission-and-handling">Proper Form Submission and Handling</h3>
+<h4 id="with-wtforms-and-flask_wtf">With <code>wtforms</code> and <code>flask_wtf</code></h4>
+<ul>
+<li><em>WTForms</em> are used to simplify and standardize HTML forms creation and handling</li>
+<li><code>flask_wtf</code> is a Flask wrapper around <code>wtforms</code></li>
+<li>The first step is to define a subclass of <code>FlaskForm</code>
+<ul>
+<li>in our example we define a <code>ContactForm</code> class</li>
+</ul></li>
+<li>We need to import these classes in order to be able to define our contact form</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="im">from</span> flask_wtf <span class="im">import</span> FlaskForm</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="im">from</span> wtforms <span class="im">import</span> StringField, TextAreaField</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="im">from</span> wtforms.fields.html5 <span class="im">import</span> EmailField</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a><span class="im">from</span> wtforms.validators <span class="im">import</span> InputRequired, Email</span></code></pre></div>
+<h4 id="contactform-class-file-02_app.py"><code>ContactForm</code> Class, File <code>02_app.py</code></h4>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">class</span> ContactForm(FlaskForm):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>    name <span class="op">=</span> StringField(<span class="st">&#39;Name&#39;</span>, validators<span class="op">=</span>[InputRequired()])</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a>    email <span class="op">=</span> EmailField(<span class="st">&#39;Email&#39;</span>, validators<span class="op">=</span>[InputRequired(), Email()])</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>    message <span class="op">=</span> TextAreaField(<span class="st">&#39;Message&#39;</span>, validators<span class="op">=</span>[InputRequired()])</span></code></pre></div>
+<ul>
+<li><code>name</code>, <code>email</code> and <code>message</code> are <em>class variables</em> (similar to <em>static fields</em> in Java)</li>
+<li>They are initialized to <code>Field</code> objects of the correct types
+<ul>
+<li>the first argument to each field constructor is the field name</li>
+<li>the second is a list of <em>validators</em>
+<ul>
+<li>in our form, all the fields are <em>required</em>, meaning they cannot be empty (<code>InputRequired</code> validator)</li>
+<li>additionally, our email field must be a valid email address (<code>Email</code> validator)</li>
+<li>note the use of parentheses <code>()</code> after the validators</li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="some-other-available-fields">Some Other Available Fields</h4>
+<p>https://wtforms.readthedocs.io/en/stable/fields.html</p>
+<ul>
+<li><code>BooleanField</code></li>
+<li><code>DateField</code></li>
+<li><code>DecimalField</code></li>
+<li><code>IntegerField</code></li>
+<li><code>RadioField</code></li>
+<li><code>SelectField</code></li>
+<li><code>EmailField</code></li>
+</ul>
+<h4 id="some-other-built-in-validators">Some Other Built-In Validators</h4>
+<p>https://wtforms.readthedocs.io/en/stable/validators.html</p>
+<ul>
+<li><code>EqualTo</code>: useful to compare 2 form fields for equality</li>
+<li><code>Length</code>: validate a string’s length</li>
+<li><code>NumberRange</code>: check if a number is within a given range</li>
+<li><code>RegExp</code>: check if the field matches a given regular expression</li>
+<li><code>AnyOf</code>: check if the field value is in a list of values (<em>white-listing</em>)</li>
+<li><code>NoneOf</code>: check if the field value is <em>not</em> in a list of values (<em> black-listing</em>)</li>
+</ul>
+<h4 id="rendering-the-form-and-handling-the-form-data">Rendering the Form and Handling the Form Data</h4>
+<ul>
+<li>The best solution is to have a single endpoint for both
+<ul>
+<li>if the request method was GET, or if the submitted data doesn’t validate, then render the form</li>
+<li>if the request method was POST, and the submitted data validates, then process the form data</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/contact_form4&#39;</span>, methods<span class="op">=</span>[<span class="st">&#39;GET&#39;</span>, <span class="st">&#39;POST&#39;</span>])</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="kw">def</span> handle_contact_form4():</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>    form <span class="op">=</span> ContactForm()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>    <span class="cf">if</span> form.validate_on_submit():</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>        <span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;data/messages.csv&#39;</span>, <span class="st">&#39;a&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>            writer <span class="op">=</span> csv.writer(f)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>            writer.writerow([form.name.data, form.email.data,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>                             form.message.data])</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a>        <span class="cf">return</span> redirect(url_for(<span class="st">&#39;contact_response&#39;</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>                                name<span class="op">=</span>form.name.data))</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;04_contact_form.html&#39;</span>, form<span class="op">=</span>form)</span></code></pre></div>
+<ol type="1">
+<li>create a form by instantiating the <code>ContactForm</code> class
+<ul>
+<li>this will automatically use the form data available in <code>request.form</code></li>
+</ul></li>
+<li><code>form.validate_on_submit()</code> will first check if there was data submitted, and if the submitted data is valid</li>
+<li>if it is valid, then process the form data as before,
+<ul>
+<li>except that the data is taken from <code>form</code>, not <code>request.form</code></li>
+<li>and that on success, we redirect to a response page
+<ul>
+<li>this way, reloading the response page will not resubmit the data since it will not have any form data associated to it</li>
+</ul></li>
+</ul></li>
+<li>if we don’t have valid submitted data, then render the form template</li>
+</ol>
+<ul>
+<li>The first time a user gets to this endpoint should be through a GET request
+<ul>
+<li>no data was submitted (the submit method is always POST), so the contact form in variable <code>form</code> will have empty data</li>
+<li><code>form.validate_on_submit()</code> will be false, so the form template will be rendered with empty form data</li>
+</ul></li>
+<li>If there was data submitted (through the POST method)
+<ul>
+<li>the <code>form</code> object will contain that data</li>
+<li>if the data doesn’t validate, then the form template will be rendered with the submitted form data, to avoid requiring the user to fill the form again</li>
+<li>if the form data validates, then it will be processed as described earlier</li>
+</ul></li>
+</ul>
+<h4 id="file-04_contact_form.html">File <code>04_contact_form.html</code></h4>
+<h5 id="form-element"><code>&lt;form&gt;</code> element</h5>
+<div class="sourceCode" id="cb10"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="kw">&lt;html</span><span class="ot"> lang=</span><span class="st">&quot;en&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>    <span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&quot;UTF-8&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>    <span class="kw">&lt;title&gt;</span>Contact Form<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a><span class="kw">&lt;h1&gt;</span>Contact Form<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a>{% if form.errors %}</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a><span class="kw">&lt;ul</span><span class="ot"> class=</span><span class="st">&quot;errors&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a>    {% for field_name, field_errors in form.errors|dictsort if field_errors %}</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true"></a>    {% for error in field_errors %}</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true"></a>    <span class="kw">&lt;li&gt;</span>{{ form[field_name].label }}: {{ error }}<span class="kw">&lt;/li&gt;</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true"></a>    {% endfor %}</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true"></a>    {% endfor %}</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true"></a><span class="kw">&lt;/ul&gt;</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true"></a>{% endif %}</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true"></a><span class="co">&lt;!-- The action is usually an endpoint on the server to handle the submitted data --&gt;</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true"></a><span class="kw">&lt;form</span><span class="ot"> action=</span><span class="st">&quot;/contact_form4&quot;</span><span class="ot"> method=</span><span class="st">&quot;post&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true"></a>    {{ form.csrf_token }}</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true"></a>    <span class="kw">&lt;table&gt;</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true"></a>        <span class="kw">&lt;tr&gt;</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true"></a>            <span class="kw">&lt;td&gt;</span>{{ form.name.label }}<span class="kw">&lt;/td&gt;</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true"></a>            <span class="kw">&lt;td&gt;</span>{{ form.name }}<span class="kw">&lt;/td&gt;</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true"></a>        <span class="kw">&lt;/tr&gt;</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true"></a>        <span class="kw">&lt;tr&gt;</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true"></a>            <span class="kw">&lt;td&gt;</span>{{ form.email.label }}<span class="kw">&lt;/td&gt;</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true"></a>            <span class="kw">&lt;td&gt;</span>{{ form.email }}<span class="kw">&lt;/td&gt;</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true"></a>        <span class="kw">&lt;/tr&gt;</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true"></a>        <span class="kw">&lt;tr&gt;</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true"></a>            <span class="kw">&lt;td&gt;</span>{{ form.message.label }}<span class="kw">&lt;/td&gt;</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true"></a>            <span class="kw">&lt;td&gt;</span>{{ form.message }}<span class="kw">&lt;/td&gt;</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true"></a>        <span class="kw">&lt;/tr&gt;</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true"></a>        <span class="kw">&lt;tr&gt;</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true"></a>            <span class="kw">&lt;td&gt;&lt;/td&gt;</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true"></a>            <span class="kw">&lt;td&gt;</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true"></a>                <span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="kw">&gt;</span>Send<span class="kw">&lt;/button&gt;</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true"></a>                <span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;reset&quot;</span><span class="kw">&gt;</span>Clear<span class="kw">&lt;/button&gt;</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true"></a>            <span class="kw">&lt;/td&gt;</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true"></a>        <span class="kw">&lt;/tr&gt;</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true"></a>    <span class="kw">&lt;/table&gt;</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true"></a></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true"></a></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true"></a><span class="kw">&lt;/form&gt;</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<ul>
+<li>The layout of this form is similar to the previous example, it is using a <code>table</code> to align the fields.</li>
+<li>To get a field’s label, we need to use, for example for the email field, <code>form.email.label</code></li>
+<li>For the field itself, we need to use <code>form.email</code>
+<ul>
+<li>this will be translated to <code>&lt;input id="email" name="email" required="" type="email" value=""&gt;</code></li>
+<li>in this example, we created the email field with <code>email = EmailField('Email', validators=[InputRequired(), Email()])</code></li>
+<li><code>'Email'</code> is actually the label for this field, and the <code>id</code> and the <code>name</code> attributes will be equal to the class variable name used when defining the <code>ContactForm</code> (in this case, the class variable name is <code>email</code>)</li>
+<li>if we want a different id, we could create the field in this way <code>email = EmailField('Your email address', id='someotherid', validators=[InputRequired(), Email()])</code></li>
+</ul></li>
+<li>the <code>form.csrf_token</code> is for security purpose, to help prevent <em>Cross-Site Request Forgery</em> attacks
+<ul>
+<li>in the Python file, we also need to set the <code>app.secret_key</code>
+<ul>
+<li>to make more secure, we should use something better than <code>'allo'</code></li>
+</ul></li>
+<li>more on this later on</li>
+</ul></li>
+</ul>
+<h4 id="error-reporting">Error Reporting</h4>
+<ul>
+<li>Some error reporting is done automatically through some kind of tooltips or pop-ups
+<ul>
+<li>this type of error reporting is handled by the browser, so the way it’s done may vary</li>
+</ul></li>
+<li>The browsers don’t catch everything, they only catch the validation rules that can be specified in HTML</li>
+<li>The other validation errors are caught when we create the <code>ContactForm</code> object and call <code>form.validate_on_submit()</code>
+<ul>
+<li>the errors are associated with the fields inside the form object</li>
+<li>the contact form template needs to check if there are any errors and include them in the HTML if necessary</li>
+<li>the easiest way to do it is with an if statement and 2 for loops before the form element</li>
+<li>another way to do it will be shown later on</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>{% if form.errors %}</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="kw">&lt;ul</span><span class="ot"> class=</span><span class="st">&quot;errors&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>    {% for field_name, field_errors in</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>    form.errors|dictsort if field_errors %}</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>    {% for error in field_errors %}</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a>    <span class="kw">&lt;li&gt;</span>{{ form[field_name].label }}: {{ error }}<span class="kw">&lt;/li&gt;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a>    {% endfor %}</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a>    {% endfor %}</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a><span class="kw">&lt;/ul&gt;</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true"></a>{% endif %}</span></code></pre></div>
+<h3 id="postredirectget-pattern">Post/Redirect/Get Pattern</h3>
+<h4 id="from-book-flask-web-development-2e-miguel-grinberg">From Book: Flask Web Development 2e, Miguel Grinberg</h4>
+<ul>
+<li><p>When the last request sent is a POST request with form data, a refresh would cause a duplicate form submission, which in almost all cases is not the desired action.</p></li>
+<li><p>For that reason, the browser asks for confirmation from the user.</p></li>
+<li><p>Many users do not understand this warning from the browser.</p></li>
+<li><p><em>Consequently, it is considered good practice for web applications to never leave a POST request as the last request sent by the browser.</em></p></li>
+<li><p>This is achieved by responding to POST requests with a redirect instead of a normal response.</p></li>
+<li><p>A redirect is a special type of response that contains a URL instead of a string with HTML code.</p></li>
+<li><p>When the browser receives a redirect response, it issues a GET request for the redirect URL, and that is the page that it displays.</p></li>
+<li><p>Now the last request is a GET, so the refresh command works as expected.</p></li>
+<li><p><strong>This trick is known as the Post/Redirect/Get pattern.</strong></p></li>
+<li><p>In our example, the line</p>
+<p><code>return redirect(url_for('contact_response', name=form.name.data))</code></p>
+<p>will redirect to the contact response using the GET method</p></li>
+<li><p>That endpoint doesn’t have access to the form data, so we pass the name to it to have a personalized message</p></li>
+<li><p>Don’t pass <code>form.name</code> to the redirect because it will pass the whole input field to the redirect</p></li>
+<li><p><code>form.name.data</code> will pass only the value of that field</p></li>
+<li><p>The contact response endpoint simply takes the name given as argument and renders a template</p></li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/contact_response/&lt;name&gt;&#39;</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="kw">def</span> contact_response(name):</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;05_contact_response.html&#39;</span>, name<span class="op">=</span>name)</span></code></pre></div>
+<ul>
+<li>The template is also quite simple</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="kw">&lt;html</span><span class="ot"> lang=</span><span class="st">&quot;en&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>    <span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&quot;UTF-8&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>    <span class="kw">&lt;title&gt;</span>Message Received<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a><span class="kw">&lt;h1&gt;</span>Thank you <span class="kw">&lt;em&gt;</span>{{ name }}<span class="kw">&lt;/em&gt;</span> for your message!<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a><span class="kw">&lt;p&gt;</span>We will contact you shortly.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<h3 id="bootstrap-forms">Bootstrap Forms</h3>
+<h4 id="files-03_app.py-and-forms.py">Files <code>03_app.py</code> and <code>forms.py</code></h4>
+<ul>
+<li><p>Since in this section we will have more forms and longer forms, it is more appropriate to create a separate file, <code>forms.py</code>, and put all the form definitions there</p></li>
+<li><p>In <code>03_app.py</code>, we need to import these forms with</p>
+<p><code>from forms import ContactForm, ExamplesForm</code></p></li>
+<li><p>Starting from the Bootstrap templates created earlier, we will start by adding the contact form to the contact page</p></li>
+<li><p>Then more form fields will be introduced in 2 different formats:</p>
+<ul>
+<li>plain HTML</li>
+<li>wtforms + Bootstrap</li>
+</ul></li>
+</ul>
+<h4 id="contactform">ContactForm</h4>
+<ul>
+<li>The Python code for the contact form is almost identical compared to the previous section
+<ul>
+<li>the endpoints code has been slightly modified to change the routes and the template files names to render</li>
+<li>The <code>ContactForm</code> class has been moved to <code>forms.py</code> with 2 small changes
+<ul>
+<li>to change the number of rows in the message text area, an extra argument as been given to the field: <code>render_kw={'rows': 10}</code></li>
+<li>a <code>submit</code> field has been added directly in the form</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="kw">class</span> ContactForm(FlaskForm):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a>    name <span class="op">=</span> StringField(<span class="st">&#39;Name&#39;</span>, validators<span class="op">=</span>[InputRequired()])</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a>    email <span class="op">=</span> EmailField(<span class="st">&#39;Email&#39;</span>, validators<span class="op">=</span>[InputRequired(), Email()])</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a>    message <span class="op">=</span> TextAreaField(<span class="st">&#39;Message&#39;</span>, validators<span class="op">=</span>[InputRequired()],</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a>                            render_kw<span class="op">=</span>{<span class="st">&#39;rows&#39;</span>: <span class="dv">10</span>})</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a>    submit <span class="op">=</span> SubmitField(<span class="st">&#39;Send&#39;</span>)</span></code></pre></div>
+<figure>
+<img src="images/contact_boot.png" alt="" /><figcaption>Contact Form</figcaption>
+</figure>
+<h4 id="contact-and-contact_response-endpoints"><code>/contact</code> and <code>/contact_response</code> endpoints</h4>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/contact&#39;</span>, methods<span class="op">=</span>[<span class="st">&#39;GET&#39;</span>, <span class="st">&#39;POST&#39;</span>])</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="kw">def</span> contact():</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a>    form <span class="op">=</span> ContactForm()</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>    <span class="cf">if</span> form.validate_on_submit():</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>        <span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;data/messages.csv&#39;</span>, <span class="st">&#39;a&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a>            writer <span class="op">=</span> csv.writer(f)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a>            writer.writerow([form.name.data, form.email.data,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a>                             form.message.data])</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true"></a>        <span class="cf">return</span> redirect(url_for(<span class="st">&#39;contact_response&#39;</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true"></a>                                name<span class="op">=</span>form.name.data))</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;contact.html&#39;</span>, form<span class="op">=</span>form)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/contact_response/&lt;name&gt;&#39;</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true"></a><span class="kw">def</span> contact_response(name):</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;contact_response.html&#39;</span>, name<span class="op">=</span>name)</span></code></pre></div>
+<h4 id="contact.html"><code>contact.html</code></h4>
+<ul>
+<li>The contact template is quite simple because it is calling a <em>macro</em> (similar to a function) defined in the base template</li>
+<li>It is calling the <code>quick_form</code> macro taking the form object as an argument along with the action attribute for the form</li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a>{% extends &quot;base.html&quot; %}</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>{% block title %}{{ super() }} - Contact{% endblock %}</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a>{% block content %}</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a>    {# This div container is the same as before #}</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true"></a>    <span class="kw">&lt;h1&gt;</span>Contact<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true"></a>    <span class="kw">&lt;dl</span><span class="ot"> class=</span><span class="st">&quot;row&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true"></a>        <span class="kw">&lt;dt</span><span class="ot"> class=</span><span class="st">&quot;col-sm-3&quot;</span><span class="kw">&gt;</span>Professor<span class="kw">&lt;/dt&gt;</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true"></a>        <span class="kw">&lt;dd</span><span class="ot"> class=</span><span class="st">&quot;col-sm-9&quot;</span><span class="kw">&gt;</span>Denis Rinfret<span class="kw">&lt;/dd&gt;</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true"></a>        <span class="kw">&lt;dt</span><span class="ot"> class=</span><span class="st">&quot;col-sm-3&quot;</span><span class="kw">&gt;</span>Email<span class="kw">&lt;/dt&gt;</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true"></a>        <span class="kw">&lt;dd</span><span class="ot"> class=</span><span class="st">&quot;col-sm-9&quot;</span><span class="kw">&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;mailto:denis@example.com&quot;</span><span class="kw">&gt;</span>denis@example.com<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true"></a>        <span class="kw">&lt;/dd&gt;</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true"></a>        <span class="kw">&lt;dt</span><span class="ot"> class=</span><span class="st">&quot;col-sm-3&quot;</span><span class="kw">&gt;</span>Office<span class="kw">&lt;/dt&gt;</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true"></a>        <span class="kw">&lt;dd</span><span class="ot"> class=</span><span class="st">&quot;col-sm-9&quot;</span><span class="kw">&gt;</span>Home<span class="kw">&lt;/dd&gt;</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true"></a>        <span class="kw">&lt;dt</span><span class="ot"> class=</span><span class="st">&quot;col-sm-3&quot;</span><span class="kw">&gt;</span>Office Hours<span class="kw">&lt;/dt&gt;</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true"></a>        <span class="kw">&lt;dd</span><span class="ot"> class=</span><span class="st">&quot;col-sm-9&quot;</span><span class="kw">&gt;</span>To be announced<span class="kw">&lt;/dd&gt;</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true"></a>    <span class="kw">&lt;/dl&gt;</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true"></a><span class="kw">&lt;/div&gt;</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true"></a></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true"></a><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true"></a>    <span class="kw">&lt;h1&gt;</span>Contact Form<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true"></a>    {{ quick_form(form, &#39;/contact&#39;) }}</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true"></a><span class="kw">&lt;/div&gt;</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true"></a>{% endblock %} <span class="co">&lt;!-- content --&gt;</span></span></code></pre></div>
+<h4 id="base.html-macros"><code>base.html</code> macros</h4>
+<ul>
+<li>There are actually 2 macros in the base template
+<ul>
+<li><code>quick_form</code>, called by the contact template to quickly render a form</li>
+<li><code>form_group</code>, called by the other macro, to render 1 form field</li>
+</ul></li>
+<li><code>quick_form</code> basically loops on all the form fields, and calls <code>form_group</code> on each field (with some exceptions)</li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a>{% macro quick_form(form, action) -%}</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a>    <span class="kw">&lt;form</span><span class="ot"> action=</span><span class="st">&quot;{{ action }}&quot;</span><span class="ot"> class=</span><span class="st">&quot;form&quot;</span><span class="ot"> method=</span><span class="st">&quot;POST&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a>        {% for field in form %}</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a>            {% if field.type in (&#39;HiddenField&#39;, &#39;CSRFTokenField&#39;) %}</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a>                {{ field() }}</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a>            {% elif field.type == &#39;SubmitField&#39; %}</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a>                {{ field(class_=&quot;btn btn-primary&quot;) }}</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true"></a>            {% else %}</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true"></a>                {{ form_group(field) }}</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true"></a>            {% endif %}</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true"></a>        {% endfor %}</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true"></a>    <span class="kw">&lt;/form&gt;</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true"></a>{% endmacro %}</span></code></pre></div>
+<ul>
+<li><code>HiddenField</code>, <code>CSRFTokenField</code> and <code>SubmitField</code> are special fields
+<ul>
+<li>they don’t need any label</li>
+<li>they won’t have any error messages associated to them</li>
+<li>so render them directly</li>
+</ul></li>
+</ul>
+<h4 id="form_group-macro"><code>form_group</code> macro</h4>
+<ul>
+<li>This macro renders a form field</li>
+<li>Depending on the field type, it will be rendered differently</li>
+<li>It starts by putting the field in a <em>form-group row</em></li>
+<li>And then renders the field label with the proper Bootstrap classes</li>
+<li>The following step depends on the field type:
+<ul>
+<li>if it’s a checkbox group (<code>MultiCheckboxField</code>) or a radio button group (<code>RadioField</code>), it will loop over all the choices to include them in proper <code>div</code> elements with proper Bootstrap classes
+<ul>
+<li>if there are errors, it will use the <code>is-invalid</code> class</li>
+<li>if not, it will use the <code>col-sm-6</code> class</li>
+<li>it will render all the choices in a single row ( class <code>form-check-inline</code>)</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a>{% macro form_group(field) -%}</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a>    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;form-group row required&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a>        {{ field.label(class_=&quot;col-sm-2 col-form-label&quot;) }}</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a>        {% if field.type in [&#39;MultiCheckboxField&#39;, &#39;RadioField&#39;] %}</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a>            {% if field.errors %}</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a>                <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;form-control col-sm-8 is-invalid&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true"></a>            {% else %}</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true"></a>                <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;form-control col-sm-8&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true"></a>            {% endif %}</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true"></a>            {% for choice in field %}</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true"></a>                <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;form-check form-check-inline&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true"></a>                    {{ choice(class_=&quot;form-check-input&quot;) }}</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true"></a>                    {{ choice.label(class_=&quot;form-check-label&quot;) }}</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true"></a>                <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true"></a>            {% endfor %}</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true"></a>            <span class="kw">&lt;/div&gt;</span></span></code></pre></div>
+<ul>
+<li>if the field is not a group, it will also check if there are errors or not, and use either the <code>is-invalid</code> or the <code>col-sm-6</code> classes</li>
+<li>if there are errors, if will render what the errors are (and not just change the style to invalid)</li>
+</ul>
+<div class="sourceCode" id="cb19"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a>        {% else %}</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a>            {% if field.errors %}</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true"></a>                {{ field(class_=&quot;form-control col-sm-8 is-invalid&quot;) }}</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true"></a>            {% else %}</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true"></a>                {{ field(class_=&quot;form-control col-sm-8&quot;) }}</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true"></a>            {% endif %}</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true"></a>        {% endif %}</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true"></a>        {% if field.errors %}</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true"></a>            {%  for error in field.errors %}</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true"></a>                <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;invalid-feedback&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true"></a>                    {{ error }}</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true"></a>                <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true"></a>            {% endfor %}</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true"></a>        {% endif %}</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true"></a>{% endmacro %}</span></code></pre></div>
+<h3 id="more-form-field-examples">More Form Field Examples</h3>
+<ul>
+<li>The <code>examples1</code> endpoint shows how to use a few more different kinds of form fields</li>
+<li>It simply renders a template containing a form with many field types</li>
+<li>A more complete example with a <code>FlaskForm</code> will follow</li>
+</ul>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/examples1&#39;</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a><span class="kw">def</span> examples():</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;examples1.html&#39;</span>)</span></code></pre></div>
+<figure>
+<img src="images/examples1.png" alt="" /><figcaption>Contact Form</figcaption>
+</figure>
+<figure>
+<img src="images/examples1_response.png" alt="" /><figcaption>Contact Form</figcaption>
+</figure>
+<h4 id="file-example1.html">File <code>example1.html</code></h4>
+<div class="sourceCode" id="cb21"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a>{% extends &quot;base.html&quot; %}</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true"></a>{% block title %}{{ super() }} - Examples 1{% endblock %}</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true"></a>{% block content %}</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true"></a><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true"></a>    <span class="kw">&lt;h1&gt;</span>Examples 1<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true"></a>    <span class="kw">&lt;h3&gt;</span>Forms<span class="kw">&lt;/h3&gt;</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true"></a>    <span class="kw">&lt;form</span><span class="ot"> id=</span><span class="st">&quot;form01&quot;</span><span class="ot"> action=</span><span class="st">&quot;/form_data1&quot;</span><span class="ot"> method=</span><span class="st">&quot;post&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true"></a>        <span class="kw">&lt;label&gt;</span>Username <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span><span class="ot"> name=</span><span class="st">&quot;username&quot;</span><span class="kw">/&gt;&lt;/label&gt;&lt;br/&gt;</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true"></a>        <span class="kw">&lt;label&gt;</span>Password <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;password&quot;</span><span class="ot"> name=</span><span class="st">&quot;pwd&quot;</span><span class="kw">&gt;&lt;/label&gt;&lt;br/&gt;</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true"></a>        <span class="kw">&lt;label&gt;</span>Age <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;number&quot;</span><span class="ot"> name=</span><span class="st">&quot;age&quot;</span><span class="ot"> min=</span><span class="st">&quot;1&quot;</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true"></a><span class="ot">                          max=</span><span class="st">&quot;125&quot;</span><span class="kw">/&gt;&lt;/label&gt;&lt;br/&gt;</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true"></a>        <span class="kw">&lt;label&gt;</span>Favorite color <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;color&quot;</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true"></a><span class="ot">                                     name=</span><span class="st">&quot;fav_color&quot;</span><span class="kw">/&gt;&lt;/label&gt;&lt;br/&gt;</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true"></a>        <span class="kw">&lt;label&gt;</span>Date of birth <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;date&quot;</span><span class="ot"> name=</span><span class="st">&quot;dob&quot;</span><span class="kw">/&gt;&lt;/label&gt;&lt;br/&gt;</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true"></a>        <span class="kw">&lt;label&gt;</span>Checkbox group</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true"></a>            <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;checkbox_group&quot;</span><span class="ot"> value=</span><span class="st">&quot;c1&quot;</span><span class="kw">/&gt;</span>Checkbox</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true"></a>                1<span class="kw">&lt;/label&gt;</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true"></a>            <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;checkbox_group&quot;</span><span class="ot"> value=</span><span class="st">&quot;c2&quot;</span><span class="kw">/&gt;</span>Checkbox</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true"></a>                2<span class="kw">&lt;/label&gt;</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true"></a>            <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;checkbox_group&quot;</span><span class="ot"> value=</span><span class="st">&quot;c3&quot;</span><span class="kw">/&gt;</span>Checkbox</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true"></a>                3<span class="kw">&lt;/label&gt;</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true"></a>        <span class="kw">&lt;/label&gt;&lt;br/&gt;</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true"></a>        <span class="kw">&lt;label&gt;</span>Radio button group</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true"></a>            <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;radio_group&quot;</span><span class="ot"> value=</span><span class="st">&quot;r1&quot;</span><span class="kw">/&gt;</span>Radio</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true"></a>                button 1<span class="kw">&lt;/label&gt;</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true"></a>            <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;radio_group&quot;</span><span class="ot"> value=</span><span class="st">&quot;r2&quot;</span><span class="kw">/&gt;</span>Radio</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true"></a>                button 2<span class="kw">&lt;/label&gt;</span></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true"></a>            <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;radio_group&quot;</span><span class="ot"> value=</span><span class="st">&quot;r3&quot;</span><span class="kw">/&gt;</span>Radio</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true"></a>                button 3<span class="kw">&lt;/label&gt;</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true"></a>        <span class="kw">&lt;/label&gt;&lt;br/&gt;</span></span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true"></a>        <span class="kw">&lt;label&gt;</span>Drop down select <span class="kw">&lt;select</span><span class="ot"> name=</span><span class="st">&quot;select1&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true"></a>            <span class="kw">&lt;option</span><span class="ot"> value=</span><span class="st">&quot;o1&quot;</span><span class="kw">&gt;</span>Option 1<span class="kw">&lt;/option&gt;</span></span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true"></a>            <span class="kw">&lt;option</span><span class="ot"> value=</span><span class="st">&quot;o2&quot;</span><span class="kw">&gt;</span>Option 2<span class="kw">&lt;/option&gt;</span></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true"></a>            <span class="kw">&lt;option</span><span class="ot"> value=</span><span class="st">&quot;o3&quot;</span><span class="kw">&gt;</span>Option 3<span class="kw">&lt;/option&gt;</span></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true"></a>        <span class="kw">&lt;/select&gt;&lt;/label&gt;&lt;br/&gt;</span></span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true"></a>        <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="ot"> name=</span><span class="st">&quot;Input Submit&quot;</span><span class="kw">/&gt;</span></span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true"></a>        <span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="kw">&gt;</span>Button Submit<span class="kw">&lt;/button&gt;</span></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true"></a>        <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;reset&quot;</span><span class="ot"> name=</span><span class="st">&quot;Input Reset&quot;</span><span class="kw">/&gt;</span></span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true"></a>        <span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;reset&quot;</span><span class="kw">&gt;</span>Button Reset<span class="kw">&lt;/button&gt;</span></span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true"></a>    <span class="kw">&lt;/form&gt;</span></span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true"></a><span class="kw">&lt;/div&gt;</span></span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true"></a>{% endblock %} <span class="co">&lt;!-- content --&gt;</span></span></code></pre></div>
+<ul>
+<li>The form’s action is <code>/form_data1</code>, which renders a template that simply loops through all the form fields and displays them in a <code>dl</code> element</li>
+</ul>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/form_data1&#39;</span>, methods<span class="op">=</span>[<span class="st">&#39;POST&#39;</span>])</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a><span class="kw">def</span> form_data1():</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;form_data1.html&#39;</span>, form<span class="op">=</span>request.form,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true"></a>                           checkboxes<span class="op">=</span>request.form.getlist(<span class="st">&#39;checkbox_group&#39;</span>))</span></code></pre></div>
+<h4 id="file-form_data1.html">File <code>form_data1.html</code></h4>
+<div class="sourceCode" id="cb23"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a>{% extends &quot;base.html&quot; %}</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true"></a>{% block title %}{{ super() }} - Form Data{% endblock %}</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true"></a>{% block content %}</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true"></a><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true"></a>    <span class="kw">&lt;h1&gt;</span>Form Data<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true"></a>    <span class="kw">&lt;dl&gt;</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true"></a>        {% for key in form %}</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true"></a>        <span class="kw">&lt;dt&gt;</span>{{ key }}<span class="kw">&lt;/dt&gt;</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true"></a>        <span class="kw">&lt;dd&gt;</span>{{ form[key] }}<span class="kw">&lt;/dd&gt;</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true"></a>        {% endfor %}</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true"></a>    <span class="kw">&lt;/dl&gt;</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true"></a>    {{ checkboxes }}</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true"></a><span class="kw">&lt;/div&gt;</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true"></a>{% endblock %} <span class="co">&lt;!-- content --&gt;</span></span></code></pre></div>
+<h4 id="checkboxes">Checkboxes</h4>
+<ul>
+<li>There only one tricky part in this example: handling checkboxes</li>
+<li>Checkboxes are different from other fields since there might be many checkboxes checked at any given time</li>
+<li>We need to get all the checked checkboxes from a checkbox group with <code>request.form.getlist('checkbox_group')</code></li>
+<li>In this example, this list of checked checkboxes is passed separately to the template, which inserts it directly in the page with <code>{{ checkboxes }}</code></li>
+<li>We could also loop on <code>checkboxes</code> to get a fancier output</li>
+</ul>
+<h4 id="examples2-endpoint"><code>/examples2</code> endpoint</h4>
+<ul>
+<li>This example is similar to the previous one, except that
+<ul>
+<li>it defines a subclass of <code>FlaskForm</code> to facilitate form validation and handling</li>
+<li>it uses Bootstrap classes for rendering</li>
+</ul></li>
+<li>For simplicity, it is reusing the <code>form_data1.html</code> template from the previous example to display form data if the form is valid</li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/examples2&#39;</span>, methods<span class="op">=</span>[<span class="st">&#39;GET&#39;</span>, <span class="st">&#39;POST&#39;</span>])</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true"></a><span class="kw">def</span> examples2():</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true"></a>    form <span class="op">=</span> ExamplesForm()</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true"></a>    <span class="cf">if</span> form.validate_on_submit():</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true"></a>        <span class="cf">return</span> render_template(<span class="st">&#39;form_data1.html&#39;</span>, form<span class="op">=</span>request.form,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true"></a>                               checkboxes<span class="op">=</span>request.form.getlist(</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true"></a>                                   <span class="st">&#39;checkbox_group&#39;</span>))</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;examples2.html&#39;</span>, form<span class="op">=</span>form)</span></code></pre></div>
+<figure>
+<img src="images/examples2.png" alt="" /><figcaption>Contact Form</figcaption>
+</figure>
+<figure>
+<img src="images/examples2_response.png" alt="" /><figcaption>Contact Form</figcaption>
+</figure>
+<h4 id="examplesform"><code>ExamplesForm</code></h4>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a><span class="kw">class</span> ExamplesForm(FlaskForm):</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true"></a>    username <span class="op">=</span> StringField(<span class="st">&#39;Username&#39;</span>,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true"></a>                           validators<span class="op">=</span>[InputRequired(), Length(<span class="dv">4</span>, <span class="dv">64</span>),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true"></a>                                       Regexp(<span class="st">&#39;^[A-Za-z][A-Za-z0-9_.]*$&#39;</span>, <span class="dv">0</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true"></a>                                              <span class="st">&#39;Usernames must start with a letter and must have only letters, numbers, dots or underscores&#39;</span>)])</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true"></a>    password <span class="op">=</span> PasswordField(<span class="st">&#39;Password&#39;</span>,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true"></a>                             validators<span class="op">=</span>[InputRequired(), Length(<span class="dv">8</span>)])</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true"></a>    age <span class="op">=</span> IntegerField(<span class="st">&#39;Age&#39;</span>,</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true"></a>                       validators<span class="op">=</span>[InputRequired(), NumberRange(<span class="dv">1</span>, <span class="dv">125</span>)])</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true"></a>    fav_color <span class="op">=</span> ColorField(<span class="st">&#39;Favorite Color&#39;</span>,</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true"></a>                           validators<span class="op">=</span>[InputRequired()])</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true"></a>    dob <span class="op">=</span> DateField(<span class="st">&#39;Date of birth&#39;</span>, validators<span class="op">=</span>[InputRequired()])</span></code></pre></div>
+<h4 id="new-validators">New validators</h4>
+<ul>
+<li><code>Length(4, 64)</code> and <code>Length(8)</code>: the string length must be between 4 and 64 characters (inclusive), and the length must be at least 8 characters long</li>
+<li><code>NumberRange(1, 125)</code>: a number must be between 1 and 125 (inclusive)</li>
+<li><code>Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0, 'Error Message')</code>: the string must match the given regular expression to be valid (refer to the section on regular expressions)
+<ul>
+<li>in this case, usernames must start with a letter and must have only letters, numbers, dots or underscores</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a>checkbox_group <span class="op">=</span> MultiCheckboxField(<span class="st">&#39;Checkbox group&#39;</span>,</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true"></a>                                    choices<span class="op">=</span>[(<span class="st">&#39;c1&#39;</span>, <span class="st">&#39;Checkbox 1&#39;</span>),</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true"></a>                                             (<span class="st">&#39;c2&#39;</span>, <span class="st">&#39;Checkbox 2&#39;</span>),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true"></a>                                             (<span class="st">&#39;c3&#39;</span>, <span class="st">&#39;Checkbox 3&#39;</span>)])</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true"></a>radio_group <span class="op">=</span> RadioField(<span class="st">&#39;Radio button group&#39;</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true"></a>                         validators<span class="op">=</span>[InputRequired()],</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true"></a>                         choices<span class="op">=</span>[(<span class="st">&#39;r1&#39;</span>, <span class="st">&#39;Radio button 1&#39;</span>),</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true"></a>                                  (<span class="st">&#39;r2&#39;</span>, <span class="st">&#39;Radio button 2&#39;</span>),</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true"></a>                                  (<span class="st">&#39;r3&#39;</span>, <span class="st">&#39;Radio button 3&#39;</span>)],</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true"></a>                         render_kw<span class="op">=</span>{<span class="st">&#39;required&#39;</span>: <span class="va">True</span>})</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true"></a>select <span class="op">=</span> SelectField(<span class="st">&#39;Drop down select&#39;</span>,</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true"></a>                     validators<span class="op">=</span>[InputRequired()],</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true"></a>                     choices<span class="op">=</span>[(<span class="st">&#39;o1&#39;</span>, <span class="st">&#39;Option 1&#39;</span>), (<span class="st">&#39;o2&#39;</span>, <span class="st">&#39;Option 2&#39;</span>),</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true"></a>                              (<span class="st">&#39;o3&#39;</span>, <span class="st">&#39;Option 3&#39;</span>)])</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true"></a>submit <span class="op">=</span> SubmitField(<span class="st">&#39;Submit&#39;</span>)</span></code></pre></div>
+<ul>
+<li>The field type <code>MultiCheckboxField</code> is actually not a standard field type
+<ul>
+<li>it is defined as a subclass of <code>SelectMultipleField</code> to provide checkboxes as default widgets</li>
+<li>often, checkboxes are not used in a checkgroup, they are added in forms separately from other fields
+<ul>
+<li>in this case use a <code>BooleanField</code></li>
+</ul></li>
+<li>but if you need a checkbox group, you can do it this way</li>
+</ul></li>
+<li>One problem with checkbox and radio button groups is that the <code>InputRequired</code> validator doesn’t seem to have any effect in many Flask versions (probably a bug)
+<ul>
+<li>this is why the parameter <code>render_kw={'required': True}</code> has been added to force it to be required</li>
+</ul></li>
+<li><code>choices</code> is a list of (obviously) choices
+<ul>
+<li>each choice is a tuple with 2 strings: its value followed by its label</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a><span class="kw">class</span> MultiCheckboxField(SelectMultipleField):</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true"></a>    widget <span class="op">=</span> ListWidget(prefix_label<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true"></a>    option_widget <span class="op">=</span> CheckboxInput()</span></code></pre></div>
+<ul>
+<li>The last part of this <code>ExamplesForm</code> is a custom validator</li>
+<li>Built-in validators cannot cover all possible cases</li>
+<li>A custom validator is a function with a name starting with <code>validate_</code></li>
+<li>The remainder of the function name must correspond to a field name (in this case <code>password</code>)</li>
+<li>It will automatically be called if the name is set correctly, no need to add it to <code>validators</code></li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a>    <span class="kw">def</span> validate_password(<span class="va">self</span>, field):</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true"></a>        <span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;data/common_passwords.txt&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true"></a>            <span class="cf">for</span> line <span class="kw">in</span> f.readlines():</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true"></a>                <span class="cf">if</span> field.data <span class="op">==</span> line.strip():</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true"></a>                    <span class="cf">raise</span> ValidationError(<span class="st">&#39;Your password is too common.&#39;</span>)</span></code></pre></div>
+<ul>
+<li>This custom validator checks if a password is too common</li>
+<li>If yes, it will raise a <code>ValidationError</code> and the field will be marked as invalid</li>
+<li>We assume here that the file <code>data/common_passwords.txt</code> contains 1 password per line, and that it contains the passwords we want to avoid</li>
+<li>In our simplified example, the password file contains only 3 passwords</li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true"></a><span class="dv">12345678</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true"></a><span class="dv">11111111</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true"></a>password</span></code></pre></div>
+<h4 id="examples2.html"><code>examples2.html</code></h4>
+<ul>
+<li>This template is quite simple since we are using the same <code>quick_form</code> macro to render the form</li>
+<li>This is not perfect, the layout of some fields is not optimal, but that’s why it’s qualified as <em>quick</em>
+<ul>
+<li>we could improve the macro to get a better layout</li>
+<li>or we could skip the macro and fine tune the layout directly in the <code>examples2.html</code> template</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb30"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a>{% extends &quot;base.html&quot; %}</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true"></a>{% block title %}{{ super() }} - Examples 1{% endblock %}</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true"></a>{% block content %}</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true"></a><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true"></a>    <span class="kw">&lt;h1&gt;</span>Examples<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true"></a>    <span class="kw">&lt;h3&gt;</span>Forms<span class="kw">&lt;/h3&gt;</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true"></a>    {{ quick_form(form, &#39;/examples2&#39;) }}</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true"></a><span class="kw">&lt;/div&gt;</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true"></a></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true"></a>{% endblock %}</span></code></pre></div>
+</body>
+</html>

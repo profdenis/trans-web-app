@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Form</title>
+</head>
+<body>
+    <h1>Contact Form</h1>
+    <!-- The action is usually an endpoint on the server to handle the submitted data -->
+    <form action="/contact_form" method="post">
+        <label>Your name <input type="text" name="name"/></label><br/>
+        <label>Your email address <input type="email" name="email"/></label><br/>
+        <label>Your message <textarea name="message"></textarea></label><br/>
+        <button type="submit">Send</button>
+        <button type="reset">Clear</button>
+    </form>
+</body>
+</html>

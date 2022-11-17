@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}{{ super() }} - Examples 1{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Examples 1</h1>
+        <h3>Forms</h3>
+        <form id="form01" action="/form_data1" method="post">
+            <label>Username <input type="text" name="username"/></label><br/>
+            <label>Password <input type="password" name="pwd"></label><br/>
+            <label>Age <input type="number" name="age" min="1" max="125"/></label><br/>
+            <label>Favorite color <input type="color" name="fav_color"/></label><br/>
+            <label>Date of birth <input type="date" name="dob"/></label><br/>
+            <label>Checkbox group
+                <label><input type="checkbox" name="checkbox_group" value="c1"/>Checkbox 1</label>
+                <label><input type="checkbox" name="checkbox_group" value="c2"/>Checkbox 2</label>
+                <label><input type="checkbox" name="checkbox_group" value="c3"/>Checkbox 3</label>
+            </label><br/>
+            <label>Radio button group
+                <label><input type="radio" name="radio_group" value="r1"/>Radio button 1</label>
+                <label><input type="radio" name="radio_group" value="r2"/>Radio button 2</label>
+                <label><input type="radio" name="radio_group" value="r3"/>Radio button 3</label>
+            </label><br/>
+            <label>Drop down select <select name="select1">
+                <option value="o1">Option 1</option>
+                <option value="o2">Option 2</option>
+                <option value="o3">Option 3</option>
+            </select></label><br/>
+            <input type="submit" name="Input Submit"/>
+            <button type="submit">Button Submit</button>
+            <input type="reset" name="Input Reset"/>
+            <button type="reset">Button Reset</button>
+        </form>
+    </div>
+{% endblock %} <!-- content -->

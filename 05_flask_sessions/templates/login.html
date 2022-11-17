@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Session Examples</title>
+</head>
+<body>
+{% for message in get_flashed_messages() %}
+    {{ message }}<br/>
+{% endfor %}
+<form action="/login" method="post">
+    {{ form.csrf_token }}
+    {{ form.username.label }} {{ form.username }}<br/>
+    {{ form.password.label }} {{ form.password }}<br/>
+    {{ form.submit }}
+</form>
+</body>
+</html>

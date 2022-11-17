@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}{{ super() }} - Contact{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {# This div container is the same as before #}
+        <h1>Contact</h1>
+        <dl class="row">
+            <dt class="col-sm-3">Professor</dt>
+            <dd class="col-sm-9">Denis Rinfret</dd>
+
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9"><a href="mailto:denis@example.com">denis@example.com</a> </dd>
+
+            <dt class="col-sm-3">Office</dt>
+            <dd class="col-sm-9">Home</dd>
+
+            <dt class="col-sm-3">Office Hours</dt>
+            <dd class="col-sm-9">To be announced</dd>
+        </dl>
+    </div>
+
+    <div class="container">
+        <h1>Contact Form</h1>
+        {{ quick_form(form, '/contact') }}
+    </div>
+{% endblock %} <!-- content -->

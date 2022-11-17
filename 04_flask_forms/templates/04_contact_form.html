@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Form</title>
+</head>
+<body>
+<h1>Contact Form</h1>
+{% if form.errors %}
+    <ul class="errors">
+        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+            {% for error in field_errors %}
+                <li>{{ form[field_name].label }}: {{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+{% endif %}
+<!-- The action is usually an endpoint on the server to handle the submitted data -->
+<form action="/contact_form4" method="post">
+    {{ form.csrf_token }}
+    <table>
+        <tr>
+            <td>{{ form.name.label }}</td>
+            <td>{{ form.name }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.email.label }}</td>
+            <td>{{ form.email }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.message.label }}</td>
+            <td>{{ form.message }}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit">Send</button>
+                <button type="reset">Clear</button>
+            </td>
+        </tr>
+    </table>
+
+
+</form>
+</body>
+</html>

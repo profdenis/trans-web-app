@@ -1,0 +1,37 @@
+{% macro render_field(field) %}
+  <dt>{{ field.label }}
+  <dd>{{ field(**kwargs)|safe }}
+  {% if field.errors %}
+    <ul class=errors>
+    {% for error in field.errors %}
+      <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  </dd>
+{% endmacro %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Session Examples</title>
+</head>
+<body>
+{% for message in get_flashed_messages() %}
+    {{ message }}<br/>
+{% endfor %}
+<h1>Register New Account</h1>
+<form action="/register" method="post">
+    {{ form.csrf_token }}
+    <dl>
+        {{ render_field(form.username) }}
+        {{ render_field(form.email) }}
+        {{ render_field(form.phone) }}
+        {{ render_field(form.password) }}
+        {{ render_field(form.password2) }}
+    </dl>
+        {{ form.submit }}
+</form>
+</body>
+</html>

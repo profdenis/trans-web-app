@@ -44,11 +44,65 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/contact">Contact</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/examples1">Examples 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/examples2">Examples 2</a>
+                </li>
             </ul>
         </div>
     </nav>
 {% endblock %}
 <br>
+
+{# The following 2 macros are based on the code from http://www.codetodd.com/flask-bootstrap-and-bootstrap-4-0/ #}
+{% macro form_group(field) -%}
+    <div class="form-group row required">
+        {{ field.label(class_="col-sm-2 col-form-label") }}
+        {% if field.type in ['MultiCheckboxField', 'RadioField'] %}
+            {% if field.errors %}
+                <div class="form-control col-sm-8 is-invalid">
+            {% else %}
+                <div class="form-control col-sm-8">
+            {% endif %}
+            {% for choice in field %}
+                <div class="form-check form-check-inline">
+                    {{ choice(class_="form-check-input") }}
+                    {{ choice.label(class_="form-check-label") }}
+                </div>
+            {% endfor %}
+            </div>
+        {% else %}
+            {% if field.errors %}
+                {{ field(class_="form-control col-sm-8 is-invalid") }}
+            {% else %}
+                {{ field(class_="form-control col-sm-8") }}
+            {% endif %}
+        {% endif %}
+        {% if field.errors %}
+            {%  for error in field.errors %}
+                <div class="invalid-feedback">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro quick_form(form, action) -%}
+    <form action="{{ action }}" class="form" method="POST">
+        {% for field in form %}
+            {% if field.type in ('HiddenField', 'CSRFTokenField') %}
+                {{ field() }}
+            {% elif field.type == 'SubmitField' %}
+                {{ field(class_="btn btn-primary") }}
+            {% else %}
+                {{ form_group(field) }}
+            {% endif %}
+        {% endfor %}
+    </form>
+{% endmacro %}
 
 {% block content %}
     <div class="container">

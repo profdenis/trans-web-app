@@ -13,7 +13,7 @@ def index():
 def documents():
     # TODO: put the prefix in the app config dictionary
     prefix = '/static/'
-    with open('data/slides.csv') as f:
+    with open('data/documents.csv') as f:
         doc_list = list(csv.reader(f))[1:]
     return render_template('documents.html', doc_list=doc_list, prefix=prefix)
 
