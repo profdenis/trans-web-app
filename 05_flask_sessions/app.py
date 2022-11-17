@@ -13,7 +13,7 @@ login_manager.init_app(app)
 # this way, it will redirect to the login page
 login_manager.login_view = 'login'
 app.config['USE_SESSION_FOR_NEXT'] = True
-app.config["SQLALCHEMY_DATABASE_URI"] = r"sqlite:///data/users2.sqlite"
+app.config["SQLALCHEMY_DATABASE_URI"] = r"sqlite:///users2.sqlite"
 db = SQLAlchemy(app)
 
 
@@ -28,6 +28,11 @@ class DBUser(db.Model):
         return "<User {}: {} {}>".format(self.username, self.email, self.phone)
 
 
+db = SQLAlchemy(app)
+
+with app.app_context():
+    db.create_all()
+    db.session.commit()
 # from app import db
 # db.create_all()
 # db.session.commit()

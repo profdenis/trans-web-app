@@ -21,12 +21,12 @@
 ### First Session Example
 
 - The first session example is quite simple
-    - it is a variation on the *Hello SOEN287!* example
-- The `/` endpoint is displaying, by default, the simple *Hello SOEN287!* page
+    - it is a variation on the *Hello World!* example
+- The `/` endpoint is displaying, by default, the simple *Hello Guest!* page
 - But if there's a name saved in the session, say for example *Alice*, then it
   will display the page *Hello Alice!* instead
 - To be able to set the name inside the session, use the dynamic
-  endpoint `/<name>`
+  endpoint `/name/<name>`
     - it will take the given name and save it in the session, then redirect
       to `/`
 
@@ -39,10 +39,10 @@ app.secret_key = 'allo'
 
 @app.route('/')
 def hello_world():
-    return 'Hello {}!'.format(session.get('name', 'SOEN287'))
+    return 'Hello {}!'.format(session.get('name', 'Guest'))
 
 
-@app.route('/<name>')
+@app.route('/name/<name>')
 def set_name(name):
     session['name'] = name
     return redirect('/')
@@ -61,10 +61,10 @@ if __name__ == '__main__':
         - but if the name key doesn't exist, it will throw a `KeyError`
     - instead, we call the `get` function on the session, and provide a default
       value
-        - `session.get('name', 'SOEN287')` will get the value associated to
+        - `session.get('name', 'Guest')` will get the value associated to
           the `name` key
         - and if there's nothing associated to it, it will return the default
-          value `'SOEN287'`
+          value `'Guest'`
 
 ### Login Form V1
 
@@ -85,8 +85,8 @@ if __name__ == '__main__':
 
 ```python
 class LoginForm(FlaskForm):
-    username = StringField('username', validators=[DataRequired()])
-    password = PasswordField('password', validators=[DataRequired()])
+    username = StringField('username', validators=[InputRequired()])
+    password = PasswordField('password', validators=[InputRequired()])
     submit = SubmitField('login')
 ```
 

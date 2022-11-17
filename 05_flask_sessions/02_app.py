@@ -11,8 +11,8 @@ class LoginForm(FlaskForm):
     username = StringField('username', validators=[InputRequired()])
     password = PasswordField('password', validators=[InputRequired()])
     submit = SubmitField('login')
-    
-    
+
+
 @app.route('/')
 def index():
     return render_template('index1.html', username=session.get('username'))

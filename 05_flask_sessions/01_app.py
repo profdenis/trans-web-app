@@ -6,10 +6,10 @@ app.secret_key = 'allo'
 
 @app.route('/')
 def hello_world():
-    return 'Hello {}!'.format(session.get('name', 'SOEN287'))
+    return 'Hello {}!'.format(session.get('name', 'Guest'))
 
 
-@app.route('/<name>')
+@app.route('/name/<name>')
 def set_name(name):
     session['name'] = name
     return redirect('/')

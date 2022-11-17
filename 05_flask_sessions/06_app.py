@@ -36,7 +36,7 @@ def load_user(user_id):
 
 
 def find_user(username):
-    con = sqlite3.connect("data/users.sqlite")
+    con = sqlite3.connect("data/users3.sqlite")
     con.row_factory = sqlite3.Row
     cur = con.cursor()
     cur.execute("SELECT username, email, phone, password FROM users WHERE username = '{}';".format(username))
@@ -91,7 +91,7 @@ def register():
         if not user:
             salt = bcrypt.gensalt()
             password = bcrypt.hashpw(form.password.data.encode(), salt)
-            con = sqlite3.connect("data/users.sqlite")
+            con = sqlite3.connect("data/users3.sqlite")
             cur = con.cursor()
             cur.execute("INSERT INTO users(username, email, phone, password) VALUES('{}', '{}', '{}', '{}');".format(
                 form.username.data, form.email.data, form.phone.data, password.decode()))
