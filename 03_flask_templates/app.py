@@ -19,8 +19,8 @@ def documents():
 
 
 @app.route('/links')
-def slides():
-    prefix = '/static/'
+def links():
+    # prefix = '/static/'
     links_list = [('Python', 'https://www.python.org'),
                   ('Flask', 'https://flask.palletsprojects.com/en/2.2.x/'),
                   ('PyCharm', 'https://www.jetbrains.com/pycharm/')]
