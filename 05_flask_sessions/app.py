@@ -6,6 +6,8 @@ from forms import LoginForm, RegisterForm
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+
+
 app.secret_key = 'allo'
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -13,29 +15,11 @@ login_manager.init_app(app)
 # this way, it will redirect to the login page
 login_manager.login_view = 'login'
 app.config['USE_SESSION_FOR_NEXT'] = True
-app.config["SQLALCHEMY_DATABASE_URI"] = r"sqlite:///users2.sqlite"
+app.config["SQLALCHEMY_DATABASE_URI"] = r"sqlite:///users.sqlite"
 db = SQLAlchemy(app)
 
+from models import DBUser
 
-class DBUser(db.Model):
-    __tablename__ = 'users'
-    username = db.Column(db.Text(), primary_key=True)
-    email = db.Column(db.Text(), nullable=False)
-    phone = db.Column(db.Text())
-    password = db.Column(db.Text(), nullable=False)
-
-    def __repr__(self):
-        return "<User {}: {} {}>".format(self.username, self.email, self.phone)
-
-
-db = SQLAlchemy(app)
-
-with app.app_context():
-    db.create_all()
-    db.session.commit()
-# from app import db
-# db.create_all()
-# db.session.commit()
 
 class SessionUser(UserMixin):
     def __init__(self, username, email, phone, password=None):

@@ -57,7 +57,7 @@
 <br>
 
 {# The following 2 macros are based on the code from http://www.codetodd.com/flask-bootstrap-and-bootstrap-4-0/ #}
-{% macro form_group(field) -%}
+{% macro form_group(field) %}
     <div class="form-group row required">
         {{ field.label(class_="col-sm-2 col-form-label") }}
         {% if field.type in ['MultiCheckboxField', 'RadioField'] %}
@@ -90,7 +90,7 @@
     </div>
 {% endmacro %}
 
-{% macro quick_form(form, action) -%}
+{% macro quick_form(form, action) %}
     <form action="{{ action }}" class="form" method="POST">
         {% for field in form %}
             {% if field.type in ('HiddenField', 'CSRFTokenField') %}

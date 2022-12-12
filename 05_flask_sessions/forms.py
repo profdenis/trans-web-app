@@ -23,7 +23,7 @@ class RegisterForm(FlaskForm):
                               validators=[InputRequired(),
                                           EqualTo('password',
                                                   message='Passwords must match.')])
-    submit = SubmitField('Login')
+    submit = SubmitField('Register')
     
     def validate_password(self, field):
         with open('data/common_passwords.txt') as f:
