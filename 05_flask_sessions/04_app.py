@@ -22,7 +22,7 @@ class User(UserMixin):
 
 
 # this is used by flask_login to get a user object for the current user
-# since we don't have any user information besides the user name, 
+# since we don't have any user information besides the username,
 # we just create a basic User object from the class above
 # the next version will improve on this
 @login_manager.user_loader
@@ -58,7 +58,7 @@ def login():
             login_user(User(form.username.data))
             flash('Logged in successfully.')
             # flash the session only if you're curious
-            # don't do this in a live web site!
+            # don't do this in a live website!
             # flash(str(session))
             
             # check if the next page is set in the session by the @login_required decorator

@@ -1,7 +1,5 @@
-from flask_sqlalchemy import SQLAlchemy
 from app import db
 
-# db = SQLAlchemy(app)
 
 class DBUser(db.Model):
     __tablename__ = 'users'
@@ -11,4 +9,4 @@ class DBUser(db.Model):
     password = db.Column(db.Text(), nullable=False)
 
     def __repr__(self):
-        return "<User {}: {} {}>".format(self.username, self.email, self.phone)
+        return "<DBUser {}: {} {}>".format(self.username, self.email, self.phone)

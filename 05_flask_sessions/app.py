@@ -15,7 +15,7 @@ login_manager.init_app(app)
 # this way, it will redirect to the login page
 login_manager.login_view = 'login'
 app.config['USE_SESSION_FOR_NEXT'] = True
-app.config["SQLALCHEMY_DATABASE_URI"] = r"sqlite:///users.sqlite"
+app.config['SQLALCHEMY_DATABASE_URI'] = r'sqlite:///users.sqlite'
 db = SQLAlchemy(app)
 
 from models import DBUser
@@ -41,9 +41,11 @@ def load_user(user_id):
 
 
 def find_user(username):
-    user = DBUser.query.filter_by(username=username).first()
-    if user:
-        user = SessionUser(user.username, user.email, user.phone, user.password)
+    res = db.session.execute(db.select(DBUser).filter_by(username=username)).first()
+    if res:
+        user = SessionUser(res[0].username, res[0].email, res[0].phone, res[0].password)
+    else:
+        user = None
     return user
 
 

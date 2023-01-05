@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>420-951-VA Transaction Web Applications</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="github.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">420-951-VA Transaction Web Applications</h1>
+</header>
+<h1 id="web-programming-with-flask">Web Programming with Flask</h1>
+<h3 id="author-denis-rinfret">Author: Denis Rinfret</h3>
+<h2 id="orm-and-databases">ORM and Databases</h2>
+<ul>
+<li><strong>ORM</strong>: <em>Object-Relational Mapping</em> (or <em>Mapper</em>)</li>
+<li>General steps to use an ORM such as <a href="https://www.sqlalchemy.%20org/">SQLAlchemy</a>, directly or through the <a href="https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/">Flask-SQLAlchemy</a> wrapper
+<ol type="1">
+<li>Define models as classes in Python</li>
+<li>Create the tables corresponding to the models using the ORM
+<ul>
+<li>this will end up executing SQL statements, such as <code>CREATE TABLE</code> statements</li>
+<li>but you don’t have to explicitly write the SQL statements, the ORM will do it for you</li>
+</ul></li>
+<li>Add instances of the model classes through the ORM
+<ul>
+<li><code>INSERT INTO</code> statements will be generated and executed by the ORM</li>
+</ul></li>
+<li>Query the DB through the models or the DB session
+<ul>
+<li>there are 2 main ways to query the DB:
+<ol type="1">
+<li>the legacy interface, using <code>model.query</code></li>
+<li>the recommended way (since version 3 of Flask-SQLAlchemy), using <code>db.session.execute</code></li>
+</ol></li>
+<li>You don’t normally need to use SQL directly while using the ORM, except for some special queries that cannot be (easily) expressed with the ways mentioned above</li>
+</ul></li>
+</ol></li>
+</ul>
+<h2 id="project-flask_mvc">Project: <code>flask_mvc</code></h2>
+<p>This is a small project to show how to set up an ORM, define models, and query the models (i.e. query the DB). In this project, the views (the templates) and the controllers (the routes) are kept simple, and the focus is placed on the models. To begin with, there are only 2 models, corresponding to 1 table each, so there are no many-to-many relationships in this example.</p>
+<h3 id="file-models.py">File <code>models.py</code></h3>
+<p><a href="https://flask-sqlalchemy.palletsprojects.com/en/2.x/models/">Doc</a></p>
+<p>Here is a diagram representing the DB:</p>
+<figure>
+<img src="images/contact_call.png" alt="" /><figcaption>contact_call.png</figcaption>
+</figure>
+<p>It is a simplified contacts DB that could be used on a mobile phone. It records the name, the phone number, the address and the email of contacts, and a history phone calls. There’s a foreign key from <code>call</code> to <code>contact</code>, which is optional in case there’s no contact associated to a given phone number.</p>
+<p>We start by defining the <code>Contact</code> model.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">class</span> Contact(db.Model):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    __tablename__ <span class="op">=</span> <span class="st">&#39;contact&#39;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    contact_id <span class="op">=</span> db.Column(db.Integer(), primary_key<span class="op">=</span><span class="va">True</span>, autoincrement<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    name <span class="op">=</span> db.Column(db.Text(), nullable<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    email <span class="op">=</span> db.Column(db.Text())</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    phone <span class="op">=</span> db.Column(db.Text())</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    address <span class="op">=</span> db.Column(db.Text())</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>    calls <span class="op">=</span> db.relationship(<span class="st">&#39;Call&#39;</span>, backref<span class="op">=</span><span class="st">&#39;contact&#39;</span>, lazy<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__repr__</span>(<span class="va">self</span>):</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>        <span class="cf">return</span> <span class="ss">f&quot;&lt;Contact </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>contact_id<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss">&gt;&quot;</span></span></code></pre></div>
+<p>For now, just ignore the <code>calls</code> field, which will be explained later. Setting the <code>__tablename__</code> and defining the <code>__repr__</code> method is optional, but this way it can make it easier to work with the models in some situations.</p>
+<p>We define a field for each attribute in the DB design. Refer to the <a href="https://docs.sqlalchemy.org/en/14/core/type_basics.html">doc</a> for more details on all the data types available. The constraints are specified as arguments to the <code>db.Column</code> constructor. In this model, only the <code>contact_id</code> and the name are mandatory, all the other ones are optional (i. e. can be null).</p>
+<p>Then we define the <code>Call</code> model.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">class</span> Call(db.Model):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    __tablename__ <span class="op">=</span> <span class="st">&#39;call&#39;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    call_id <span class="op">=</span> db.Column(db.Integer(), primary_key<span class="op">=</span><span class="va">True</span>, autoincrement<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>    phone <span class="op">=</span> db.Column(db.Text(), nullable<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    datetime <span class="op">=</span> db.Column(db.DateTime(), nullable<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>                         default<span class="op">=</span>datetime.datetime.now)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>    contact_id <span class="op">=</span> db.Column(db.Integer(), db.ForeignKey(<span class="st">&#39;contact.contact_id&#39;</span>))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__repr__</span>(<span class="va">self</span>):</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>        <span class="cf">return</span> <span class="ss">f&quot;&lt;Call </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>call_id<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>phone<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>contact_id<span class="sc">}</span><span class="ss">&gt;&quot;</span></span></code></pre></div>
+<p>There’s an example of setting a default value for a column, in this case the <code>datetime</code> column. The default value can be a fixed value, or it can be a function that’s going to be called whenever necessary.</p>
+<p>The <code>contact_id</code> column in the <code>Call</code> model is a foreign key to the <code>Contact</code> model. A <code>db.ForeignKey</code> constraint is given to specify the foreign key. So given a call, it will be easy to find the contact for the call (if any). In some situations, it may be necessary to do the reverse, to know which calls correspond to a specific contact, or in other words, find all the calls with a given <code>contact_id</code>. Defining the <code>calls</code> field in <code>Contact</code> model will make this easy since, given an instance of <code>Contact</code>, we will be able to access all the calls associated to the contact through the <code>calls</code> field. It is marked as a <code>backref</code> since it is, in a sense, the reverse of the foreign key from <code>Call</code>.</p>
+<p><code>calls</code> is not going to be a column in the <code>contact</code> table in the DB. Instead, a query will be executed to find all the calls corresponding to the contact. It is labelled as <em>lazy</em> because if not, we could end up query all the calls of all contacts when we may not need them, and it could cause bad performance on large databases. The <code>calls</code> field will be available automatically with the legacy query interface, but not with the <code>db.session.execute</code> method. More on this later.</p>
+<h3 id="file-manage.py">File <code>manage.py</code></h3>
+<p>This file is used when we start a flask shell.</p>
+<p>After creating a new model, if the corresponding table in the DB doesn’t already exist, we need to create it. We could write a <code>CREATE TABLE</code> statement to create, but it would be easy to make a mistake and end up with a table that doesn’t exactly match the model, because of non-matching names or data types for example. The easiest way is to tell SQLAlchemy to automatically create the tables corresponding to our models. It will only create the missing tables, so it is easy to add a new model and create its corresponding table without messing up the existing models/tables.</p>
+<p>The <code>manage.py</code> file includes a function that will be called automatically if we start a <em>flask shell</em>. Open a terminal window in Pycharm, then execute the command <code>flask shell</code>. From there, you will be able to call <code>db.create_all()</code> to create the tables for the new models without touching the existing tables. Don’t forget to commit your changes after creating the tables.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="im">from</span> app <span class="im">import</span> app</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="im">from</span> models <span class="im">import</span> db, Contact, Call</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="at">@app.shell_context_processor</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a><span class="kw">def</span> make_shell_context():</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>    <span class="cf">return</span> <span class="bu">dict</span>(app<span class="op">=</span>app, db<span class="op">=</span>db, Contact<span class="op">=</span>Contact, Call<span class="op">=</span>Call)</span></code></pre></div>
+<h3 id="adding-and-querying-data-through-the-flask-shell">Adding and querying data through the flask shell</h3>
+<p>It is possible to add data to the DB through the flask shell. The methods used are the same as the one we will need to use in the routes. The difference is where the data comes from. In the routes, the data might come from the forms, while in the flask shell, we will probably just make up some data for testing. It is also possible to write a script that will add some data to the DB through the ORM.</p>
+<ol type="1">
+<li>Create an instance of <code>Contact</code>: <code>contact = Contact(name='Denis')</code></li>
+<li>Add it to the DB: <code>db.session.add(contact)</code></li>
+<li>Repeat if desired, possibly by specifying more column values: <code>contact = Contact(name='Bob', email='bob@example.com')</code></li>
+<li>Commit your changes: <code>db.session.commit()</code></li>
+<li>You can also commit after each call to <code>add</code></li>
+<li>You will not know immediately if there are any issues with the new contacts, for example you will not know if there are broken constraints after you add the new contact</li>
+<li>You will only know after you commit, that’s why it might be better to commit after each <code>add</code></li>
+<li>You can use <code>db.session.rollback()</code> to undo all your changes since the last commit</li>
+</ol>
+<p>You can add data to <code>Call</code> in a similar fashion.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="im">import</span> datetime</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>db.session.add(Call(phone<span class="op">=</span><span class="st">&#39;1112223333&#39;</span>))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>db.session.add(Call(phone<span class="op">=</span><span class="st">&#39;5552223333&#39;</span>, contact_id<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>db.session.add(Call(phone<span class="op">=</span><span class="st">&#39;5552223333&#39;</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>                    datetime<span class="op">=</span>datetime.datetime(<span class="dv">2023</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>                    contact_id<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>db.session.commit()</span></code></pre></div>
+<h4 id="querying-with-the-legacy-interface">Querying with the legacy interface</h4>
+<p><a href="https://flask-sqlalchemy.palletsprojects.com/en/2.x/queries/#querying-records">Doc</a></p>
+<p>With this interface, we need to go through the model to get the data. To get all the contacts, we can do <code>contacts = Contact.query.all()</code>. We will get a list of <code>Contact</code> objects. Instead of <code>all()</code>, we can do <code>first()</code> to get only the first result. We won’t get a list in this, but just an instance of <code>Contact</code>, or <code>None</code> if there aren’t any results. With <code>first()</code>, an empty list will be returned if there aren’t any results.</p>
+<p>We can use <code>filter_by</code> on <code>query</code> for simple equality filters, such as <code>contacts = Contact.query.filter_by(name='Bob').all()</code>.</p>
+<p>With <code>filter</code> instead of <code>filter_by</code>, we need to refer to the model’s fields to specify condition, we cannot use <code>name</code> directly. The equivalent query to the previous is <code>contacts = Contact.query.filter(Contact.name=='Bob').all()</code>. Note the double equal <code>==</code> here. As opposed to <code>filter_by</code>, <code>filter</code> accepts a condition, not a value for a specific column. Therefore, <code>filter</code> is much more flexible than <code>filter_by</code>. You can use <code>where</code> instead of <code>filter</code> if you prefer.</p>
+<p>To filter on <code>null</code> or <code>not null</code> values, since we are using Python, we have to use <code>None</code> instead of <code>null</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>contacts <span class="op">=</span> Contact.query.<span class="bu">filter</span>(Contact.email <span class="op">==</span> <span class="va">None</span>).<span class="bu">all</span>()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>contacts <span class="op">=</span> Contact.query.<span class="bu">filter</span>(Contact.email <span class="op">!=</span> <span class="va">None</span>).<span class="bu">all</span>()</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>contacts <span class="op">=</span> Contact.query.<span class="bu">filter</span>(Contact.email.isnot(<span class="va">None</span>)).<span class="bu">all</span>()</span></code></pre></div>
+<p>The last 2 are equivalent, and opposite of the first one.</p>
+<p>When querying for calls, you can access the <code>contact_id</code> field of a call to know which contact it corresponds to. You will get an integer or <code>None</code> if there’s no associated contact. You can also access the <code>contact</code> attribute of a call to get an instance of a contact the call corresponds to. It’s not a real field, there’s no column or columns in <code>call</code> containing the full contact data. <code>contact</code> in this case is really a getter that’s going to query the <code>contact</code> model and build a full instance the corresponding contact.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>call <span class="op">=</span> Call.query.filter_by(call_id<span class="op">=</span><span class="dv">1</span>).first()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="bu">print</span>(call)  <span class="co"># prints &lt;Call 1: 1112223333 None&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="bu">print</span>(call.contact_id)  <span class="co"># prints None</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="bu">print</span>(call.contact)  <span class="co"># prints None</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>call <span class="op">=</span> Call.query.filter_by(call_id<span class="op">=</span><span class="dv">1</span>).first()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a><span class="bu">print</span>(call)  <span class="co"># prints &lt;Call 2: 5552223333 1&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a><span class="bu">print</span>(call.contact_id)  <span class="co"># prints 1</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a><span class="bu">print</span>(call.contact)  <span class="co"># prints &lt;Contact 1: Denis&gt;</span></span></code></pre></div>
+<p>When querying by primary key, it is more convenient, and possibly faster, to use the <code>get</code> method. Because we query by primary key, we know for sure we cannot get more than 1 result, so we get a <code>Contact</code> instance, or <code>None</code> if the contact was not found. Alternatively, when in a route, you can use <code>get_or_404</code>. You use it the same way as <code>get</code>, except that instead or returning <code>None</code> is not found, a <em>404 Not Found</em> will be returned from the route.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>contact <span class="op">=</span> Contact.query.get(<span class="dv">1</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="bu">print</span>(contact)  <span class="co"># prints &lt;Contact 1: Denis&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>contact <span class="op">=</span> Contact.query.get(<span class="dv">4</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a><span class="bu">print</span>(contact)  <span class="co"># prints None</span></span></code></pre></div>
+<p>From a contact instance, we can use the <code>backref</code> to access all the calls associated to a contact. Here again, the ORM will query the DB to get these associated calls.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>contact <span class="op">=</span> Contact.query.get(<span class="dv">1</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="bu">print</span>(contact)  <span class="co"># prints &lt;Contact 1: Denis&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="bu">print</span>(contact.calls)  <span class="co"># prints [&lt;Call 2: 5552223333 1&gt;, &lt;Call 3: 5552223333 1&gt;]</span></span></code></pre></div>
+<p>Although very convenient, we have to be careful using the legacy interface. It can become very inefficient over large databases. Creating model instances can be expensive if the number of rows in the results is large, and/or if the number of columns in the table is large. If, for example, we only need 3 columns of a table out of, say, 50 columns, then creating an instance will require all 50 columns values, even if we are going to use only 3. If the number of rows is large, that’s even worse.</p>
+<p>The <code>backref</code> is defined as lazy to avoid building the list representing the <code>backref</code> all the time, possibly for nothing.</p>
+<h4 id="querying-with-db.session.execute">Querying with <code>db.session.execute</code></h4>
+<p><a href="https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/queries/#select">Doc</a></p>
+<p><a href="https://docs.sqlalchemy.org/en/14/orm/queryguide.html">Doc</a></p>
+<p>The big difference between the two querying methods is that with the legacy interface, we get instances or lists of instances of the model classes, while with <code>db.session.execute</code>, we can get list of rows more easily, similar to what we would get if we were executing SQL statements directly on the DB. We still get SQL injection protection, but model instances are not created automatically in all cases. This is less convenient in some cases, but it can be more efficient on large tables and databases since we don’t need to retrieve all columns all the time. And we can control more precisely the queries that are sent to the DB.</p>
+<p>In the first example, we get all the calls. If we loop directly on the <code>result</code>, we get tuples, each containing 1 <code>Call</code> instance.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>result <span class="op">=</span> db.session.execute(db.select(Call))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="cf">for</span> res <span class="kw">in</span> result:</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>    <span class="bu">print</span>(res)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a><span class="co"># prints </span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a><span class="co"># (&lt;Call 1: 1112223333 None&gt;,)</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a><span class="co"># (&lt;Call 2: 5552223333 1&gt;,)</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a><span class="co"># (&lt;Call 3: 5552223333 1&gt;,)</span></span></code></pre></div>
+<p>If we loop on <code>result.scalars()</code>, we get the <code>Call</code> instances directly instead.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>result <span class="op">=</span> db.session.execute(db.select(Call))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="cf">for</span> res <span class="kw">in</span> result.scalars():</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>    <span class="bu">print</span>(res)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a><span class="co"># prints</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a><span class="co"># &lt;Call 1: 1112223333 None&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="co"># &lt;Call 2: 5552223333 1&gt;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a><span class="co"># &lt;Call 3: 5552223333 1&gt;</span></span></code></pre></div>
+<p>If we don’t want to retrieve all the columns, we can do something like this.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>result <span class="op">=</span> db.session.execute(db.select(Call.call_id, Call.datetime))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="cf">for</span> res <span class="kw">in</span> result:</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>    <span class="bu">print</span>(res)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a><span class="co"># prints</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a><span class="co"># (1, datetime.datetime(2023, 1, 4, 21, 22, 16, 777713))</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a><span class="co"># (2, datetime.datetime(2023, 1, 4, 21, 22, 40, 763128))</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a><span class="co"># (3, datetime.datetime(2023, 1, 1, 0, 0))</span></span></code></pre></div>
+<p>Because we did not specify whole models to select, we get tuples of data instead of model instances.</p>
+<h3 id="joins">Joins</h3>
+<p>With the legacy interface, when we use <code>call.contact</code>, we are implicitly doing a join for the specific <code>Call</code> instance. Similarly, accessing <code>contact. calls</code> involves a join. We can also use the <code>join</code> method on the result of query to perform joins, similar to the examples included below using <code>execute</code>.</p>
+<p>To be able to do any kind of join, we can use a <code>select</code> with multiple tables. But be careful, if you don’t specify any join conditions, using either the <code>join</code> or the <code>where</code> methods, then you will end up with a cartesian product.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>result <span class="op">=</span> db.session.execute(db.select(Call, Contact))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="cf">for</span> res <span class="kw">in</span> result:</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a>    <span class="bu">print</span>(res)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a><span class="co"># prints</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a><span class="co"># (&lt;Call 1: 1112223333 None&gt;, &lt;Contact 1: Denis&gt;)</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a><span class="co"># (&lt;Call 1: 1112223333 None&gt;, &lt;Contact 2: Bob&gt;)</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a><span class="co"># (&lt;Call 2: 5552223333 1&gt;, &lt;Contact 1: Denis&gt;)</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a><span class="co"># (&lt;Call 2: 5552223333 1&gt;, &lt;Contact 2: Bob&gt;)</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a><span class="co"># (&lt;Call 3: 5552223333 1&gt;, &lt;Contact 1: Denis&gt;)</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a><span class="co"># (&lt;Call 3: 5552223333 1&gt;, &lt;Contact 2: Bob&gt;)</span></span></code></pre></div>
+<p>All the following 3 ways give the same results.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>result <span class="op">=</span> db.session.execute(db.select(Call, Contact)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>                            .where(Call.contact_id <span class="op">==</span> Contact.contact_id))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a>result <span class="op">=</span> db.session.execute(db.select(Call, Contact).join(Contact))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>result <span class="op">=</span> db.session.execute(db.select(Call, Contact).join(Contact,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>                                                          Call.contact_id <span class="op">==</span> Contact.contact_id))</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a><span class="cf">for</span> res <span class="kw">in</span> result:</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a>    <span class="bu">print</span>(res)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a><span class="co"># prints </span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a><span class="co"># (&lt;Call 2: 5552223333 1&gt;, &lt;Contact 1: Denis&gt;)</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a><span class="co"># (&lt;Call 3: 5552223333 1&gt;, &lt;Contact 1: Denis&gt;)</span></span></code></pre></div>
+<p>The first way will produce the following SQL query. It’s really a cartesian product followed by a filter on a condition, which is equivalent to a join.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a><span class="kw">FROM</span> <span class="kw">call</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a>     contact</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a><span class="kw">WHERE</span> <span class="kw">call</span>.contact_id <span class="op">==</span> contact.contact_id</span></code></pre></div>
+<p>The other 2 ways will produce the same SQL query, but with the last one, you have the flexibility to specify the join condition you want.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="kw">FROM</span> <span class="kw">call</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a>         <span class="kw">INNER</span> <span class="kw">JOIN</span> contact <span class="kw">ON</span> <span class="kw">call</span>.contact_id <span class="op">==</span> contact.contact_id</span></code></pre></div>
+</body>
+</html>

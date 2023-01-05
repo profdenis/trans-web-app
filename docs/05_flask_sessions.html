@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>420-951-VA Transaction Web Applications</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="github.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">420-951-VA Transaction Web Applications</h1>
+</header>
+<h1 id="web-programming-with-flask">Web Programming with Flask</h1>
+<h3 id="author-denis-rinfret">Author: Denis Rinfret</h3>
+<h2 id="flask-sessions">Flask Sessions</h2>
+<ul>
+<li>Sessions are used to remember some data between user requests</li>
+<li>By design, the <em>Hypertext Transfer Protocol (HTTP)</em>, and the <em>Internet Protocol (IP)</em> on which HTTP is built are <strong>stateless</strong>
+<ul>
+<li>the server doesn’t normally retain data about the client</li>
+</ul></li>
+<li>When a session is created, a special <em>token</em> will be saved as a <em>cookie</em> on the client side (normally in a web browser)</li>
+<li>The server will associate data to this token and keep it in local storage (server-side)</li>
+<li>When the client makes another request to the server, the session token will be checked by the server to match it with associated data</li>
+<li>Without sessions, it would be harder to maintain secure sessions between the client and the server
+<ul>
+<li>users surely don’t want to re-enter their password on every request</li>
+</ul></li>
+</ul>
+<h3 id="first-session-example">First Session Example</h3>
+<ul>
+<li>The first session example is quite simple
+<ul>
+<li>it is a variation on the <em>Hello World!</em> example</li>
+</ul></li>
+<li>The <code>/</code> endpoint is displaying, by default, the simple <em>Hello Guest!</em> page</li>
+<li>But if there’s a name saved in the session, say for example <em>Alice</em>, then it will display the page <em>Hello Alice!</em> instead</li>
+<li>To be able to set the name inside the session, use the dynamic endpoint <code>/name/&lt;name&gt;</code>
+<ul>
+<li>it will take the given name and save it in the session, then redirect to <code>/</code></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="im">from</span> flask <span class="im">import</span> Flask, session, redirect</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>app <span class="op">=</span> Flask(<span class="va">__name__</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>app.secret_key <span class="op">=</span> <span class="st">&#39;allo&#39;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/&#39;</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="kw">def</span> hello_world():</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>    <span class="cf">return</span> <span class="st">&#39;Hello </span><span class="sc">{}</span><span class="st">!&#39;</span>.<span class="bu">format</span>(session.get(<span class="st">&#39;name&#39;</span>, <span class="st">&#39;Guest&#39;</span>))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/name/&lt;name&gt;&#39;</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a><span class="kw">def</span> set_name(name):</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>    session[<span class="st">&#39;name&#39;</span>] <span class="op">=</span> name</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>    <span class="cf">return</span> redirect(<span class="st">&#39;/&#39;</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a>    app.run()</span></code></pre></div>
+<ul>
+<li>The <code>session</code> object is like a dictionary
+<ul>
+<li>we can use the square bracket notation <code>[]</code> to access or set values associated to some keys</li>
+<li><code>session['name'] = name</code> sets the value associated to the <code>'name'</code> key</li>
+<li>we could simply use <code>session['name']</code> in the <code>/</code> endpoint to get the value associated to the name key
+<ul>
+<li>but if the name key doesn’t exist, it will throw a <code>KeyError</code></li>
+</ul></li>
+<li>instead, we call the <code>get</code> function on the session, and provide a default value
+<ul>
+<li><code>session.get('name', 'Guest')</code> will get the value associated to the <code>name</code> key</li>
+<li>and if there’s nothing associated to it, it will return the default value <code>'Guest'</code></li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="login-form-v1">Login Form V1</h3>
+<h4 id="file-02_app.py">File <code>02_app.py</code></h4>
+<ul>
+<li>The first version of a login form to open an authenticated session has 3 endpoints:
+<ul>
+<li><code>/</code>: display a welcome message, with either a login or logout link</li>
+<li><code>/login</code>: GET and POST methods accepted
+<ul>
+<li>GET: display a login form</li>
+<li>POST: if the submitted form data validates, then start a session for the user and redirect to <code>/</code></li>
+</ul></li>
+<li><code>/logout</code>: clear the session data and redirect to <code>/</code></li>
+</ul></li>
+</ul>
+<h4 id="loginform"><code>LoginForm</code></h4>
+<ul>
+<li><em>Note</em>: to keep the example simple, some validators have been omitted</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">class</span> LoginForm(FlaskForm):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    username <span class="op">=</span> StringField(<span class="st">&#39;username&#39;</span>, validators<span class="op">=</span>[InputRequired()])</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    password <span class="op">=</span> PasswordField(<span class="st">&#39;password&#39;</span>, validators<span class="op">=</span>[InputRequired()])</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>    submit <span class="op">=</span> SubmitField(<span class="st">&#39;login&#39;</span>)</span></code></pre></div>
+<h4 id="login-endpoint"><code>/login</code> endpoint</h4>
+<ul>
+<li>If the submitted form data is valid, we simply, for now, set the <code>username</code> key in the <code>session</code> object</li>
+<li>When the user is redirected to <code>/</code>, or when a subsequent request is made, it will be possible to get the <code>username</code> from the <code>session</code> object</li>
+<li>If there is no username in the session, then we assume the user is not logged in
+<ul>
+<li>this is not the best way to handle logins, it is only the first step to get to a better way</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/login&#39;</span>, methods<span class="op">=</span>[<span class="st">&#39;GET&#39;</span>, <span class="st">&#39;POST&#39;</span>])</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">def</span> login():</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>    form <span class="op">=</span> LoginForm()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    <span class="cf">if</span> form.validate_on_submit():</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>        <span class="co"># should check if username/password pair is valid</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>        <span class="co"># for now, just accept everything</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>        session[<span class="st">&#39;username&#39;</span>] <span class="op">=</span> form.username.data</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>        <span class="cf">return</span> redirect(<span class="st">&#39;/&#39;</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;login.html&#39;</span>, form<span class="op">=</span>form)</span></code></pre></div>
+<h4 id="logout-endpoint"><code>/logout</code> Endpoint</h4>
+<ul>
+<li>The only thing we need to do here is to call the <code>clear</code> function on the <code>session</code> object to clear (remove) all key-value pairs in the session</li>
+<li>Then we redirect to <code>/</code></li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/logout&#39;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="kw">def</span> logout():</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>    session.clear()</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>    <span class="cf">return</span> redirect(<span class="st">&#39;/&#39;</span>)</span></code></pre></div>
+<h4 id="endpoint"><code>/</code> Endpoint</h4>
+<ul>
+<li>This endpoint simply renders the <code>index1.html</code> template, with the <code>username</code> variable set to <code>session.get('username')</code></li>
+<li>In this case, we didn’t provide a default value to <code>get</code>, so we will get <code>None</code> if the username is not set in the session
+<ul>
+<li>this will, again, help us avoid a <code>KeyError</code> if the provided key is not in the session</li>
+<li><code>None</code> will evaluate to <code>False</code> when it is used in an <code>if</code> statement, such as
+<ul>
+<li><code>if username</code> in a Python file</li>
+<li><code>{% if username %}</code> in a template</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/&#39;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">def</span> index():</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;index1.html&#39;</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>                           username<span class="op">=</span>session.get(<span class="st">&#39;username&#39;</span>))</span></code></pre></div>
+<h4 id="file-index1.html">File <code>index1.html</code></h4>
+<ul>
+<li>This template checks if there is a <code>username</code> or not
+<ul>
+<li>if the <code>username</code> is <code>None</code>, then it will evaluate to <code>False</code>
+<ul>
+<li>so we will jump to the <code>else</code> block</li>
+<li>and a default welcome message with a link to the <em>login</em> page will be displayed</li>
+</ul></li>
+<li>if the <code>username</code> is <strong>not</strong> <code>None</code>, then we have a username to work with
+<ul>
+<li>so we welcome the user by a personalized welcome message</li>
+<li>then we provide a <em>logout</em> link</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="kw">&lt;html</span><span class="ot"> lang=</span><span class="st">&quot;en&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>    <span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&quot;UTF-8&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>    <span class="kw">&lt;title&gt;</span>Session Examples<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>{% if username %}</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a><span class="kw">&lt;h1&gt;</span>Welcome {{ username }}!<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/logout&quot;</span><span class="kw">&gt;</span>Logout<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a>{% else %}</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true"></a><span class="kw">&lt;h1&gt;</span>Welcome Stranger!<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true"></a><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/login&quot;</span><span class="kw">&gt;</span>Login<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true"></a>{% endif %}</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<h3 id="login-form-v2">Login Form V2</h3>
+<h4 id="file-03_app.py">File <code>03_app.py</code></h4>
+<ul>
+<li>The only change in this version compared to the previous one is how we handle the form data</li>
+<li>Instead of accepting any username/password pair, we have a passwords file containing the registered users’ password</li>
+<li>In the <code>/login</code> endpoint, if the submitted form data validates, we call the <code>check_password</code> function with the provided username/password pair
+<ul>
+<li>if we have a match, then we set the username in the session as before</li>
+<li>if not, we <em>flash</em> an error message
+<ul>
+<li><em>flash</em>ed messages will be automatically available in the templates ( refer to the <code>login.html</code> template below)</li>
+<li><em>flash</em>ed messages will be displayed just before the login form</li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="login-endpoint-1"><code>/login</code> Endpoint</h4>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/login&#39;</span>, methods<span class="op">=</span>[<span class="st">&#39;GET&#39;</span>, <span class="st">&#39;POST&#39;</span>])</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="kw">def</span> login():</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>    form <span class="op">=</span> LoginForm()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>    <span class="cf">if</span> form.validate_on_submit():</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>        <span class="cf">if</span> check_password(form.username.data, form.password.data):</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>            session[<span class="st">&#39;username&#39;</span>] <span class="op">=</span> form.username.data</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>            <span class="cf">return</span> redirect(<span class="st">&#39;/&#39;</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>        <span class="cf">else</span>:</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a>            flash(<span class="st">&#39;Incorrect username/password!&#39;</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;login.html&#39;</span>, form<span class="op">=</span>form)</span></code></pre></div>
+<h4 id="check_password-function"><code>check_password</code> Function</h4>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="co"># not a safe way to store and verify passwords, but it will do for now  </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="kw">def</span> check_password(username, password):</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a>    <span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;data/passwords.csv&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>        <span class="cf">for</span> user <span class="kw">in</span> csv.reader(f):</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a>            <span class="cf">if</span> username <span class="op">==</span> user[<span class="dv">0</span>] <span class="kw">and</span> password <span class="op">==</span> user[<span class="dv">1</span>]:</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a>                <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a>    <span class="cf">return</span> <span class="va">False</span></span></code></pre></div>
+<h4 id="file-passwords.csv">File <code>passwords.csv</code></h4>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>denis, <span class="dv">1234</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>rob, allo</span></code></pre></div>
+<ul>
+<li>To verify passwords, we open a CSV file for reading</li>
+<li>The first element of each row is a username</li>
+<li>The second element is the corresponding password</li>
+<li>If both the submitted username and password match the current record in the CSV file, then return <code>True</code></li>
+<li>If not, then keep searching</li>
+<li>If we reach the end of the file without a match, then return <code>False</code></li>
+</ul>
+<h4 id="file-login.html">File <code>login.html</code></h4>
+<ul>
+<li>The only new thing in this template is the loop through flashed messages</li>
+<li>We do a for loop on all the messages returned by the call to the built-in function <code>get_flashed_messages</code></li>
+<li>And we simply display all of them separated by a break <code>&lt;br/&gt;</code></li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="kw">&lt;html</span><span class="ot"> lang=</span><span class="st">&quot;en&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>    <span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&quot;UTF-8&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>    <span class="kw">&lt;title&gt;</span>Session Examples<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a>{% for message in get_flashed_messages() %}</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a>{{ message }}<span class="kw">&lt;br/&gt;</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a>{% endfor %}</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a><span class="kw">&lt;form</span><span class="ot"> action=</span><span class="st">&quot;/login&quot;</span><span class="ot"> method=</span><span class="st">&quot;post&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true"></a>    {{ form.csrf_token }}</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true"></a>    {{ form.username.label }} {{ form.username }}<span class="kw">&lt;br/&gt;</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true"></a>    {{ form.password.label }} {{ form.password }}<span class="kw">&lt;br/&gt;</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true"></a>    {{ form.submit }}</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true"></a><span class="kw">&lt;/form&gt;</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<h3 id="better-login-system-flask_login-package">Better Login System: <code>flask_login</code> Package</h3>
+<ul>
+<li>File <code>04_app.py</code></li>
+<li>As it is the case for most common tasks required to run a website, there exists a package to help out managing logins and sessions</li>
+<li><code>flask_login</code> helps managing logins, users and permissions, without being too restrictive</li>
+</ul>
+<h4 id="step-1-loginmanager">Step 1: <code>LoginManager</code></h4>
+<ul>
+<li><p>We need to start a <code>LoginManager</code>, which we import from <code>flask_login</code>, in this way:</p>
+<p><code>login_manager = LoginManager()</code></p>
+<p><code>login_manager.init_app(app)</code></p></li>
+</ul>
+<h4 id="step-2-user-class">Step 2: <code>User</code> class</h4>
+<ul>
+<li>We also need to define a <code>User</code> class to represent our users
+<ul>
+<li>the easiest way is to subclass <code>UserMixin</code> (imported from <code>flask_login</code>)</li>
+<li>for now, we only need a username, and since we must define an <code>id</code> for each user with this package, we set <code>self.id</code> to be the username in the constructor</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">class</span> User(UserMixin):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, username):</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>        <span class="va">self</span>.<span class="bu">id</span> <span class="op">=</span> username</span></code></pre></div>
+<h4 id="step-3-load_user">Step 3: <code>load_user</code></h4>
+<ul>
+<li>We need to define a <code>load_user</code> function to retrieve user details from a user id</li>
+<li>For now, a user is defined only by its username, so we create a <code>User</code> object with the username provided
+<ul>
+<li>in a more complete application, the user information will be more detailed (name, email address, profile photo, …)</li>
+<li>this user information will normally be read from a file or from a database</li>
+</ul></li>
+<li>The decorator <code>@login_manager.user_loader</code> is needed in order to let the login manager know which function to call to load a user</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="at">@login_manager.user_loader</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="kw">def</span> load_user(user_id):</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a>    <span class="cf">return</span> User(user_id)</span></code></pre></div>
+<h4 id="step-4-login-endpoint">Step 4: <code>/login</code> endpoint</h4>
+<ul>
+<li>The <code>/login</code> endpoint is very similar to the previous example, except that we need to call the <code>login_user</code> function, imported from <code>flask_login</code>, to let the login manager know that the user has logged in successfully</li>
+<li>The only other difference, besides the additional flashed message, is how the user is redirected to another page after a successful log in
+<ul>
+<li>when a user tries to access a protected page without being logged in, the user will be redirected to the login page</li>
+<li>then after a successful login, it is often more convenient to redirect the user to whatever page she was trying to access before being redirected</li>
+<li>the page to be redirected to will be stored in the session, with the key <code>next</code></li>
+<li>so we get the <code>next</code> page from the session instead of always redirecting to <code>/</code></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/login&#39;</span>, methods<span class="op">=</span>[<span class="st">&#39;GET&#39;</span>, <span class="st">&#39;POST&#39;</span>])</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="kw">def</span> login():</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a>    form <span class="op">=</span> LoginForm()</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>    <span class="cf">if</span> form.validate_on_submit():</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>        <span class="cf">if</span> check_password(form.username.data, form.password.data):</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a>            login_user(User(form.username.data))</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a>            flash(<span class="st">&#39;Logged in successfully.&#39;</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a>            <span class="co"># check if the next page is set in the session by the @login_required decorator</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a>            <span class="co"># if not set, it will default to &#39;/&#39;</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true"></a>            next_page <span class="op">=</span> session.get(<span class="st">&#39;next&#39;</span>, <span class="st">&#39;/&#39;</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true"></a>            <span class="co"># reset the next page to default &#39;/&#39;</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true"></a>            session[<span class="st">&#39;next&#39;</span>] <span class="op">=</span> <span class="st">&#39;/&#39;</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true"></a>            <span class="cf">return</span> redirect(next_page)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true"></a>        <span class="cf">else</span>:</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true"></a>            flash(<span class="st">&#39;Incorrect username/password!&#39;</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;login.html&#39;</span>, form<span class="op">=</span>form)</span></code></pre></div>
+<h4 id="step-5-protect-endpoints-with-login_required">Step 5: protect endpoints with <code>@login_required</code></h4>
+<ul>
+<li><code>@login_required</code> is a decorator imported from <code>flask_login</code></li>
+<li>If we want an endpoint to be accessible only to logged-in users, then we <em> decorate</em> the endpoint with <code>@login_required</code></li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/protected&#39;</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a><span class="at">@login_required</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a><span class="kw">def</span> protected():</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;protected.html&#39;</span>)</span></code></pre></div>
+<ul>
+<li><p>If the user requesting the protected endpoint is not logged in, he will be automatically redirected to the <code>/login</code> endpoint</p></li>
+<li><p>If already logged in, then it will just go through and execute the endpoint function as normal</p></li>
+<li><p>In order for these redirects to work correctly, we need the following 2 lines (just after setting up the login manager)</p>
+<p><code>login_manager.login_view = 'login'</code></p>
+<p><code>app.config['USE_SESSION_FOR_NEXT'] = True</code></p></li>
+<li><p>Without setting the <code>login_view</code>, attempting to access <code>@login_required</code> endpoints will result in an error</p></li>
+<li><p>It is more convenient to use sessions to store the <code>next</code> parameter, so that’s why <code>'USE_SESSION_FOR_NEXT'</code> is set to <code>True</code> in the app configuration dictionary</p></li>
+</ul>
+<h4 id="file-protected.html">File <code>protected.html</code></h4>
+<ul>
+<li>Showing only the contents of the <code>&lt;body&gt;</code> element</li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="kw">&lt;html</span><span class="ot"> lang=</span><span class="st">&quot;en&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>    <span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&quot;UTF-8&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>    <span class="kw">&lt;title&gt;</span>Session Examples<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a>{% for message in get_flashed_messages() %}</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true"></a>{{ message }}<span class="kw">&lt;br/&gt;</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true"></a>{% endfor %}</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true"></a><span class="kw">&lt;h1&gt;</span>You have to be authenticated to view this<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true"></a><span class="kw">&lt;h3&gt;</span>current_user.id: {{ current_user.id }}<span class="kw">&lt;/h3&gt;</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true"></a><span class="kw">&lt;h3&gt;</span>current_user.is_authenticated: {{ current_user.is_authenticated }}<span class="kw">&lt;/h3&gt;</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<ul>
+<li>After displaying the flashed messages, this page is showing how to refer to the current user
+<ul>
+<li>simply access the <code>current_user</code> object</li>
+<li>and access the fields you need, such as <code>current_user.id</code></li>
+</ul></li>
+<li>use <code>current_user.is_authenticated</code> to determine if the current user is authenticated of not
+<ul>
+<li>by default, <code>flask_login</code> uses a special anonymous user when no user is logged in
+<ul>
+<li>its <code>is_authenticated</code> field will always be false</li>
+</ul></li>
+<li>when is a user is actually logged in, <code>is_authenticated</code> will be true</li>
+</ul></li>
+<li>The file <code>non_protected.html</code> is almost identical</li>
+</ul>
+<h4 id="step-6-logout-endpoint">Step 6: <code>/logout</code> endpoint</h4>
+<ul>
+<li>When logging out, instead of clearing the session directly, it is better to call the <code>logout_user</code> function (also imported from <code>flask_login</code>), to let the login manager handle it</li>
+<li>Note that this endpoint is also decorated with <code>@login_required</code>, since it does not make sense to log out if the user is not currently logged in</li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/logout&#39;</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="at">@login_required</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a><span class="kw">def</span> logout():</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>    logout_user()</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a>    <span class="cf">return</span> redirect(<span class="st">&#39;/&#39;</span>)</span></code></pre></div>
+<h4 id="file-index2.html">File <code>index2.html</code></h4>
+<ul>
+<li>This template uses <code>current_user.is_authenticated</code> to display different things to logged-in users and anonymous users</li>
+<li>Note that this template is used by both this example and the next, so that’s why it is checking if the current user has an email and a phone number
+<ul>
+<li>in this example, a user doesn’t have these fields</li>
+<li>but in the next, a user will have these fields</li>
+</ul></li>
+<li>Showing only the contents of the <code>&lt;body&gt;</code> element and skipping the display of flashed messages</li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a><span class="kw">&lt;html</span><span class="ot"> lang=</span><span class="st">&quot;en&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a>    <span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&quot;UTF-8&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a>    <span class="kw">&lt;title&gt;</span>Session Examples<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true"></a>{% for message in get_flashed_messages() %}</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true"></a>{{ message }}<span class="kw">&lt;br/&gt;</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true"></a>{% endfor %}</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true"></a>{% if current_user.is_authenticated %}</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true"></a><span class="kw">&lt;h1&gt;</span>Welcome {{ current_user.id }}!<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true"></a>{% if current_user.email and current_user.phone %}</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true"></a><span class="kw">&lt;dl&gt;</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true"></a>    <span class="kw">&lt;dt&gt;</span>email<span class="kw">&lt;/dt&gt;</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true"></a>    <span class="kw">&lt;dd&gt;</span>{{ current_user.email }}<span class="kw">&lt;/dd&gt;</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true"></a>    <span class="kw">&lt;dt&gt;</span>phone<span class="kw">&lt;/dt&gt;</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true"></a>    <span class="kw">&lt;dd&gt;</span>{{ current_user.phone }}<span class="kw">&lt;/dd&gt;</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true"></a><span class="kw">&lt;/dl&gt;</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true"></a>{% endif %}</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true"></a><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/logout&quot;</span><span class="kw">&gt;</span>Logout<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true"></a>{% else %}</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true"></a><span class="kw">&lt;h1&gt;</span>Welcome Stranger!<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true"></a><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/login&quot;</span><span class="kw">&gt;</span>Login<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true"></a><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/register&quot;</span><span class="kw">&gt;</span>Register<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true"></a>{% endif %}</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true"></a><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/non_protected&quot;</span><span class="kw">&gt;</span>Non Protected<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true"></a><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/protected&quot;</span><span class="kw">&gt;</span>Protected<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<h3 id="better-password-handling-and-user-registration">Better Password Handling and User Registration</h3>
+<ul>
+<li>File <code>05_app.py</code></li>
+<li>In this example, we improve on the previous example by having a more complete <code>User</code> class, and with a much better way to save and retrieve users data, including a properly hashed password, from a CSV file</li>
+<li>There is also a new registration page</li>
+</ul>
+<h4 id="user-class"><code>User</code> class</h4>
+<ul>
+<li>3 new fields are added to the <code>User</code> class: <code>email</code>, <code>phone</code> and <code>password</code></li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="kw">class</span> User(UserMixin):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, username, email, phone, password<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a>        <span class="va">self</span>.<span class="bu">id</span> <span class="op">=</span> username</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a>        <span class="va">self</span>.email <span class="op">=</span> email</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a>        <span class="va">self</span>.phone <span class="op">=</span> phone</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a>        <span class="va">self</span>.password <span class="op">=</span> password</span></code></pre></div>
+<h4 id="load_user-function"><code>load_user</code> function</h4>
+<ul>
+<li>The <code>load_user</code> function calls the <code>find_user</code> to search for a user with the given user id (actually the username in our example)</li>
+<li>The password will be included in the user object returned by the <code>find_user</code> function
+<ul>
+<li>but the login manager doesn’t need it</li>
+<li>so we hide it by setting it to <code>None</code> to avoid some potential security issues</li>
+</ul></li>
+<li>If <code>find_user</code> doesn’t find the user, it will return <code>None</code>
+<ul>
+<li>therefore <code>load_user</code> might return <code>None</code></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="at">@login_manager.user_loader</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a><span class="kw">def</span> load_user(user_id):</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true"></a>    user <span class="op">=</span> find_user(user_id)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true"></a>    <span class="co"># user could be None</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true"></a>    <span class="cf">if</span> user:</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true"></a>        <span class="co"># if not None, hide the password by setting it to None</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true"></a>        user.password <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true"></a>    <span class="cf">return</span> user</span></code></pre></div>
+<h4 id="find_user-function"><code>find_user</code> function</h4>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="kw">def</span> find_user(username):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a>    <span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;data/users.csv&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true"></a>        <span class="cf">for</span> user <span class="kw">in</span> csv.reader(f):</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true"></a>            <span class="cf">if</span> username <span class="op">==</span> user[<span class="dv">0</span>]:</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true"></a>                <span class="cf">return</span> User(<span class="op">*</span>user)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true"></a>    <span class="cf">return</span> <span class="va">None</span></span></code></pre></div>
+<ul>
+<li>The first part of this function is similar to the <code>check_password</code> from the previous example
+<ul>
+<li>it reads a CSV file line-by-line, each line representing a user</li>
+<li><code>user[0]</code> is still the username</li>
+<li>the following fields are, in order, the email address, the phone number, and the password</li>
+<li>then the function returns a new user object</li>
+<li>if the username is not found, it returns <code>None</code></li>
+</ul></li>
+<li>The password is saved in a special form called a <em>hashed password</em>
+<ul>
+<li>the <code>bcrypt</code> package is used in this example</li>
+<li>more details on this later on</li>
+</ul></li>
+<li>The special notation <code>*user</code> is often called <em>unpacking an argument list</em>
+<ul>
+<li><code>user</code> is a list containing the <em>username</em>, <em>email</em> address, <em>phone</em> number and <em>password</em> of the user</li>
+<li>the <code>User</code> constructor’s arguments have to be given in the same order</li>
+<li>so <code>*user</code> will <em>unpack</em> the list elements into the constructor arguments</li>
+<li>we could write instead <code>return User(user[0], user[1], user[2], user[3])</code>
+<ul>
+<li>but <code>return User(*user)</code> is much cleaner</li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="list-unpacking-example">List unpacking example</h4>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="kw">def</span> f(a, b, c):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&quot;a = </span><span class="sc">{}</span><span class="ch">\n</span><span class="st">b = </span><span class="sc">{}</span><span class="ch">\n</span><span class="st">c = </span><span class="sc">{}</span><span class="ch">\n</span><span class="st">&quot;</span>.<span class="bu">format</span>(a, b, c))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true"></a>data <span class="op">=</span> [<span class="dv">2</span>, <span class="st">&quot;Hello&quot;</span>, <span class="fl">5.6</span>]</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true"></a>f(<span class="op">*</span>data)</span></code></pre></div>
+<pre><code>a = 2
+b = Hello
+c = 5.6</code></pre>
+<h4 id="login-endpoint-2"><code>/login</code> endpoint</h4>
+<ul>
+<li>The same logic is kept in the <code>/login</code> endpoint, except that the password is not checked in the same way</li>
+<li>We use the <code>bcrypt</code> package to verify the hashed password</li>
+</ul>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/login&#39;</span>, methods<span class="op">=</span>[<span class="st">&#39;GET&#39;</span>, <span class="st">&#39;POST&#39;</span>])</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true"></a><span class="kw">def</span> login():</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true"></a>    form <span class="op">=</span> LoginForm()</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true"></a>    <span class="cf">if</span> form.validate_on_submit():</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true"></a>        user <span class="op">=</span> find_user(form.username.data)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true"></a>        <span class="co"># user could be None</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true"></a>        <span class="co"># passwords are kept in hashed form, using the bcrypt algorithm</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true"></a>        <span class="cf">if</span> user <span class="kw">and</span> bcrypt.checkpw(form.password.data.encode(),</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true"></a>                                   user.password.encode()):</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true"></a>            login_user(user)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true"></a>            flash(<span class="st">&#39;Logged in successfully.&#39;</span>)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true"></a>            next_page <span class="op">=</span> session.get(<span class="st">&#39;next&#39;</span>, <span class="st">&#39;/&#39;</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true"></a>            session[<span class="st">&#39;next&#39;</span>] <span class="op">=</span> <span class="st">&#39;/&#39;</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true"></a>            <span class="cf">return</span> redirect(next_page)</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true"></a>        <span class="cf">else</span>:</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true"></a>            flash(<span class="st">&#39;Incorrect username/password!&#39;</span>)</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true"></a>    <span class="cf">return</span> render_template(<span class="st">&#39;login.html&#39;</span>, form<span class="op">=</span>form)</span></code></pre></div>
+<ul>
+<li>First, to check the password, we need to find the user (same as in <code>load_user</code>)</li>
+<li>Second, we check if we have a user and if yes, we use <code>bcrypt</code> to check the password
+<ul>
+<li>if <code>user</code> is <code>None</code>, then it will evaluate to <code>False</code> and the whole condition will be <code>False</code></li>
+<li>if we have a user, then we will check if the submitted password matches the stored password
+<ul>
+<li>in order for the <code>checkpw</code> to work correctly, the password strings have to be encoded properly</li>
+</ul></li>
+<li>if we have a match, then we proceed in the same way as before</li>
+</ul></li>
+</ul>
+<h4 id="user-registration">User Registration</h4>
+<ul>
+<li>To register a new user, we need a <code>RegisterForm</code> and a corresponding <code>/register</code> endpoint
+<ul>
+<li>note that in this example, the forms have been moved to another file <code>forms.py</code></li>
+</ul></li>
+<li>This form is reusing some fields and validators already used in other examples
+<ul>
+<li>the <em>username, email, phone, password, submit</em> fields and the <code>validate_password</code> function are identical to previous examples</li>
+</ul></li>
+<li>The only new field is the <code>password2</code> field
+<ul>
+<li><p>this field is used to confirm that the password was typed correctly</p></li>
+<li><p>besides <code>InputRequired</code>, we use the <code>EqualTo</code> validator</p>
+<ul>
+<li><code>EqualTo('password', message='Passwords must match.')</code></li>
+<li>it specifies that it must be equal to the <code>password</code> field</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="kw">class</span> RegisterForm(FlaskForm):</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true"></a>    username <span class="op">=</span> StringField(<span class="st">&#39;Username&#39;</span>,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true"></a>                           validators<span class="op">=</span>[InputRequired(),</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true"></a>                                       Length(<span class="dv">4</span>, <span class="dv">64</span>),</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true"></a>                                       Regexp(<span class="st">&#39;^[A-Za-z][A-Za-z0-9_.]*$&#39;</span>, <span class="dv">0</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true"></a>                                              <span class="st">&#39;Usernames must start with a letter and must have only letters, numbers, dots or underscores&#39;</span>)])</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true"></a>    email <span class="op">=</span> EmailField(<span class="st">&#39;Email&#39;</span>, validators<span class="op">=</span>[InputRequired(), Email()])</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true"></a>    phone <span class="op">=</span> StringField(<span class="st">&#39;Phone number&#39;</span>, validators<span class="op">=</span>[InputRequired()])</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true"></a>    password <span class="op">=</span> PasswordField(<span class="st">&#39;Password&#39;</span>, validators<span class="op">=</span>[InputRequired(),</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true"></a>                                                     Length(<span class="dv">8</span>)])</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true"></a>    password2 <span class="op">=</span> PasswordField(<span class="st">&#39;Repeat password&#39;</span>,</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true"></a>                              validators<span class="op">=</span>[InputRequired(),</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true"></a>                                          EqualTo(<span class="st">&#39;password&#39;</span>,</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true"></a>                                                  message<span class="op">=</span><span class="st">&#39;Passwords must match.&#39;</span>)])</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true"></a>    submit <span class="op">=</span> SubmitField(<span class="st">&#39;Login&#39;</span>)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true"></a></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true"></a>    <span class="kw">def</span> validate_password(<span class="va">self</span>, field):</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true"></a>        <span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;data/common_passwords.txt&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true"></a>            <span class="cf">for</span> line <span class="kw">in</span> f.readlines():</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true"></a>                <span class="cf">if</span> field.data <span class="op">==</span> line.strip():</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true"></a>                    <span class="cf">raise</span> ValidationError(<span class="st">&#39;Your password is too common.&#39;</span>)</span></code></pre></div>
+<h4 id="register-endpoint"><code>/register</code> endpoint</h4>
+<ul>
+<li>The <code>/register</code> endpoint is quite similar to the <code>/login</code> endpoint in many ways
+<ul>
+<li>they both render and handle forms</li>
+<li>they both look for a user with a given username
+<ul>
+<li>the difference is that in <code>/login</code>, we need to find a given user to be successful</li>
+<li>while in <code>/register</code>, we do <em>not</em> want to find a given user since we don’t want 2 different users with the same username</li>
+</ul></li>
+<li>in <code>/login</code> we need to verify the submitted password,
+<ul>
+<li>while in <code>/register</code> we need to hash the submitted password</li>
+</ul></li>
+<li>in <code>/register</code>, instead of reading a CSV files, we need to append some data to the CSV file</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a><span class="at">@app.route</span>(<span class="st">&#39;/register&#39;</span>, methods<span class="op">=</span>[<span class="st">&#39;GET&#39;</span>, <span class="st">&#39;POST&#39;</span>])</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true"></a><span class="kw">def</span> register():</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true"></a>    form <span class="op">=</span> RegisterForm()</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true"></a>    <span class="cf">if</span> form.validate_on_submit():</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true"></a>        <span class="co"># check first if user already exists</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true"></a>        user <span class="op">=</span> find_user(form.username.data)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true"></a>        <span class="cf">if</span> <span class="kw">not</span> user:</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true"></a>            salt <span class="op">=</span> bcrypt.gensalt()</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true"></a>            password <span class="op">=</span> bcrypt.hashpw(form.password.data.encode(),</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true"></a>                                     salt)</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true"></a>            <span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;data/users.csv&#39;</span>, <span class="st">&#39;a&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true"></a>                writer <span class="op">=</span> csv.writer(f)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true"></a>                writer.writerow([form.username.data,</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true"></a>                                 form.email.data,</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true"></a>                                 form.phone.data,</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true"></a>                                 password.decode()])</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true"></a>        flash(<span class="st">&#39;Registered successfully.&#39;</span>)</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true"></a>        <span class="cf">return</span> redirect(<span class="st">&#39;/login&#39;</span>)</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true"></a>    <span class="cf">else</span>:</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true"></a>        flash(<span class="st">&#39;This username already exists, choose another one&#39;</span>)</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true"></a>        <span class="cf">return</span> render_template(<span class="st">&#39;register.html&#39;</span>, form<span class="op">=</span>form)</span></code></pre></div>
+<ul>
+<li>If we do <em>not</em> find a user with the submitted username, <code>user</code> will be <code>None</code> and <code>not None</code> will evaluate to <code>True</code>
+<ul>
+<li>to hash a password with <code>bcrypt</code>, we need to generate a random <em>salt</em>, then we use this random salt to hash the password</li>
+<li>the password needs to be encoded before being hashed</li>
+<li>we then open the <code>users.csv</code> file in <em>append</em> mode to add a user row at the end of the file using a CSV writer</li>
+<li>the fields need to be put in this order: <em>username, email, phone</em> and <em> password</em></li>
+<li>the password has to be decoded before saving it to the file</li>
+<li>after writing the data to the file, the user is redirected to the login page</li>
+</ul></li>
+</ul>
+<h2 id="converting-the-project-to-use-flask-sqlalchemy">Converting the project to use Flask-SQLAlchemy</h2>
+<h3 id="the-mvc-pattern-in-a-flask-project">The MVC pattern in a Flask Project</h3>
+<ul>
+<li><strong>MVC</strong> pattern: <strong>Model-View-Controller</strong></li>
+<li>In Flask,
+<ul>
+<li>the <em>templates</em> are the <em>views</em></li>
+<li>the <em>routes</em> (more precisely, the functions decorated with the <code>@app.route</code> decorator) are the <em>controllers</em></li>
+<li>the <em>models</em> can be implemented using <em>SQLAlchemy</em></li>
+</ul></li>
+<li>The <code>Flask-SQLAlchemy</code> package is a wrapper around the <code>SQLAlchemy</code> package</li>
+<li>Check the <a href="https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/">documentation</a> for many more details</li>
+<li>The models are usually placed in a separate file from the <code>app.py</code> containing the call to <code>app.run()</code>, usually named <code>models.py</code> when the number of models is small, or in many files if there are many models</li>
+</ul>
+<h3 id="changes-to-the-project">Changes to the project</h3>
+<p>In <code>app.py</code>: 1. Import <code>SQLAlchemy</code> from <code>flask_sqlalchemy</code> 2. Configure the database URI in <code>app.config['SQLALCHEMY_DATABASE_URI']</code> 3. Create an instance of <code>SQLAlchemy</code> 4. Import the model 5. Modify the places where the DB was accessed 1. in the <code>find_user</code> function 2. in the <code>register</code> route - note that it might be a good idea to define a <code>register_user</code> function, and call it from the <code>register</code> route</p>
+<p>In <code>models.py</code>: 1. Import the instance of <code>SQLAlchemy</code> from the app 2. Define a subclass of <code>db.Model</code> for the user 1. define fields of type <code>db.Column</code> for each column 2. define the <code>__repr__</code> function (similar to the <code>toString</code> method in Java) 3. (optional) define the table name</p>
+<h3 id="find_user-function-1"><code>find_user</code> function</h3>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="kw">def</span> find_user(username):</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true"></a>    res <span class="op">=</span> db.session.execute(db.select(DBUser).filter_by(username<span class="op">=</span>username)).first()</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true"></a>    <span class="cf">if</span> res:</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true"></a>        user <span class="op">=</span> SessionUser(res[<span class="dv">0</span>].username, res[<span class="dv">0</span>].email, res[<span class="dv">0</span>].phone, res[<span class="dv">0</span>].password)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true"></a>    <span class="cf">else</span>:</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true"></a>        user <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true"></a>    <span class="cf">return</span> user</span></code></pre></div>
+<p>Instead of connecting directly to the DB, and executing directly an SQL statement on the connection, we go through the DB session, and call the <code>execute</code> method. We end up executing a <code>SELECT</code> statement anyway, but through a <code>db.select</code>. The <code>filter_by</code> is the equivalent of the <code>WHERE</code> condition. The main advantage of doing it this way is that data passed to the query, coming from the string typed into a text field inside a form, will be escaped automatically for us, to help us avoid <a href="https://en.wikipedia.org//wiki/SQL_injection">SQL injection</a> attacks.</p>
+<p>Another advantage is that we don’t have to worry about which DBMS we connect to exactly. The differences between the DBMSs will be handled transparently by SQLAlchemy for us. It makes it much easier to migrate to another DBMS if we need to.</p>
+<h3 id="register-route"><code>register</code> route</h3>
+<p>Similar changes need to be made in the <code>register</code> route, except that we don’t query the DB, but we insert, or add, a new user if a user with that username doesn’t already exist. Instead of connecting directly to the DB and executing an <code>INSERT</code> statement, we create a new instance of <code>DBUser</code>, then we add it to the DB through the <code>db.session.add</code> method. We must not forget to call <code>commit</code> on the session to make sure that our new user is saved correctly in the DB.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a>            user <span class="op">=</span> DBUser(username<span class="op">=</span>form.username.data, email<span class="op">=</span>form.email.data, phone<span class="op">=</span>form.phone.data,</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true"></a>                          password<span class="op">=</span>password.decode())</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true"></a>            db.session.add(user)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true"></a>            db.session.commit()</span></code></pre></div>
+<h3 id="manage.py-file"><code>manage.py</code> file</h3>
+<p>After creating a new model, if the corresponding table in the DB doesn’t already exist, we need to create it. We could write a <code>CREATE TABLE</code> statement to create, but it would be easy to make a mistake and end up with a table that doesn’t exactly match the model, because of non-matching names or data types for example. The easiest way is to tell SQLAlchemy to automatically create the tables corresponding to our models. It will only create the missing tables, so it is easy to add a new model and create its corresponding table without messing up the existing models/tables.</p>
+<p>The <code>manage.py</code> file includes a function that will be called automatically if we start a <em>flask shell</em>. Open a terminal window in Pycharm, then execute the command <code>flask shell</code>. From there, you will be able to call <code>db.create_all()</code> to create the tables for the new models without touching the existing tables. Don’t forget to commit your changes after creating the tables.</p>
+<p>You could also create new <code>DBUser</code> instances here, and add them to the DB, as shown in the <code>register</code> route.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a><span class="im">from</span> app <span class="im">import</span> app</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true"></a><span class="im">from</span> models <span class="im">import</span> db, DBUser</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true"></a><span class="at">@app.shell_context_processor</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true"></a><span class="kw">def</span> make_shell_context():</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true"></a>    <span class="cf">return</span> <span class="bu">dict</span>(app<span class="op">=</span>app, db<span class="op">=</span>db, DBUser<span class="op">=</span>DBUser)</span></code></pre></div>
+</body>
+</html>

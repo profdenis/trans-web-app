@@ -693,4 +693,114 @@ def register():
     - after writing the data to the file, the user is redirected to the login
       page
 
+## Converting the project to use Flask-SQLAlchemy
 
+### The MVC pattern in a Flask Project
+
+- **MVC** pattern: **Model-View-Controller**
+- In Flask,
+    - the *templates* are the *views*
+    - the *routes* (more precisely, the functions decorated with the
+      `@app.route` decorator) are the *controllers*
+    - the *models* can be implemented using *SQLAlchemy*
+- The `Flask-SQLAlchemy` package is a wrapper around the `SQLAlchemy` package
+- Check the 
+  [documentation](https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/)
+  for many more details 
+- The models are usually placed in a separate file from the `app.py` 
+  containing the call to `app.run()`, usually named `models.py` when the 
+  number of models is small, or in many files if there are many models
+
+### Changes to the project
+
+In `app.py`:
+1. Import `SQLAlchemy` from `flask_sqlalchemy`
+2. Configure the database URI in `app.config['SQLALCHEMY_DATABASE_URI']`
+3. Create an instance of `SQLAlchemy`
+4. Import the model
+5. Modify the places where the DB was accessed
+   1. in the `find_user` function
+   2. in the `register` route
+      - note that it might be a good idea to define a `register_user` 
+        function, and call it from the `register` route
+
+In `models.py`:
+1. Import the instance of `SQLAlchemy` from the app
+2. Define a subclass of `db.Model` for the user
+   1. define fields of type `db.Column` for each column
+   2. define the `__repr__` function (similar to the `toString` method in Java)
+   3. (optional) define the table name
+
+### `find_user` function
+
+````python
+def find_user(username):
+    res = db.session.execute(db.select(DBUser).filter_by(username=username)).first()
+    if res:
+        user = SessionUser(res[0].username, res[0].email, res[0].phone, res[0].password)
+    else:
+        user = None
+    return user
+````
+
+Instead of connecting directly to the DB, and executing directly an SQL 
+statement on the connection, we go through the DB session, and call the 
+`execute` method. We end up executing a `SELECT` statement anyway, but 
+through a `db.select`. The `filter_by` is the equivalent of the `WHERE` 
+condition. The main advantage of doing it this way is that data passed to 
+the query, coming from the string typed into a text field inside a form, 
+will be escaped automatically for us, to help us avoid 
+[SQL injection](https://en.wikipedia.org//wiki/SQL_injection) attacks.
+
+Another advantage is that we don't have to worry about which DBMS we connect 
+to exactly. The differences between the DBMSs will be handled transparently 
+by SQLAlchemy for us. It makes it much easier to migrate to another DBMS if 
+we need to.
+
+### `register` route
+
+Similar changes need to be made in the `register` route, except that we 
+don't query the DB, but we insert, or add, a new user if a user with that 
+username doesn't already exist. Instead of connecting directly to the DB and 
+executing an `INSERT` statement, we create a new instance of `DBUser`, then 
+we add it to the DB through the `db.session.add` method. We must not forget 
+to call `commit` on the session to make sure that our new user is saved 
+correctly in the DB.
+
+````python
+            user = DBUser(username=form.username.data, email=form.email.data, phone=form.phone.data,
+                          password=password.decode())
+            db.session.add(user)
+            db.session.commit()
+````
+
+### `manage.py` file
+
+After creating a new model, if the corresponding table in the DB doesn't 
+already exist, we need to create it. We could write a `CREATE TABLE` 
+statement to create, but it would be easy to make a mistake and end up with 
+a table that doesn't exactly match the model, because of non-matching names 
+or data types for example. The easiest way is to tell SQLAlchemy to 
+automatically create the tables corresponding to our models. It will only 
+create the missing tables, so it is easy to add a new model and create its 
+corresponding table without messing up the existing models/tables.
+
+The `manage.py` file includes a function that will be called automatically 
+if we start a *flask shell*. Open a terminal window in Pycharm, then execute 
+the command `flask shell`. From there, you will be able to call 
+`db.create_all()` to create the tables for the new models without touching 
+the existing tables. Don't forget to commit your changes after creating the 
+tables.
+
+You could also create new `DBUser` instances here, and add them to the DB, 
+as shown in the `register` route.
+
+````python
+from app import app
+from models import db, DBUser
+
+
+@app.shell_context_processor
+def make_shell_context():
+    return dict(app=app, db=db, DBUser=DBUser)
+````
