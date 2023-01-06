@@ -41,9 +41,11 @@ def load_user(user_id):
 
 
 def find_user(username):
-    res = db.session.execute(db.select(DBUser).filter_by(username=username)).first()
+    # res = db.session.execute(db.select(DBUser).filter_by(username=username)).first()
+    res = DBUser.query.get(username)
     if res:
-        user = SessionUser(res[0].username, res[0].email, res[0].phone, res[0].password)
+        # user = SessionUser(res[0].username, res[0].email, res[0].phone, res[0].password)
+        user = SessionUser(res.username, res.email, res.phone, res.password)
     else:
         user = None
     return user
