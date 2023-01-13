@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact</title>
+</head>
+<body>
+<dl>
+    {% for key in contact.__dict__ %}
+        {% if key[0] != '_' %}
+            <dt>{{ key }}</dt>
+            <dd>{{ contact.__dict__[key] }}</dd>
+        {% endif %}
+    {% endfor %}
+    <dt>Calls</dt>
+    <dd>
+        {% if not contact.calls %}
+            None
+        {% else %}
+            {% for call in contact.calls %}
+                <dl>
+                    {% for key in call.__dict__ %}
+                        {% if key[0] != '_' %}
+                            <dt>{{ key }}</dt>
+                            <dd>{{ call.__dict__[key] }}</dd>
+                        {% endif %}
+                    {% endfor %}
+                </dl>
+            {% endfor %}
+
+        {% endif %}
+    </dd>
+</dl>
+</body>
+</html>

@@ -236,9 +236,9 @@ print(call.contact)  # prints <Contact 1: Denis>
 When querying by primary key, it is more convenient, and possibly faster, to
 use the `get` method. Because we query by primary key, we know for sure we
 cannot get more than 1 result, so we get a `Contact` instance, or `None` if
-the contact was not found. Alternatively, when in a route, you can use 
-`get_or_404`. You use it the same way as `get`, except that instead or 
-returning `None` is not found, a *404 Not Found* will be returned from the 
+the contact was not found. Alternatively, when in a route, you can use
+`get_or_404`. You use it the same way as `get`, except that instead or
+returning `None` is not found, a *404 Not Found* will be returned from the
 route.
 
 ````python
@@ -385,3 +385,67 @@ SELECT *
 FROM call
          INNER JOIN contact ON call.contact_id == contact.contact_id
 ````
+
+## Example of a many-many relationship (from chatGPT)
+
+### Question
+
+Can you give me an example of a many-many relationship using flask and SQLAlchemy?
+
+### Answer
+
+Certainly! Here is an example of how you might define a many-to-many
+relationship using Flask and SQLAlchemy:
+
+````python
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+
+
+class Student(db.Model):
+    __tablename__ = 'students'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    courses = db.relationship('Course', secondary='student_courses',
+                              backref='students')
+
+
+class Course(db.Model):
+    __tablename__ = 'courses'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+
+
+class StudentCourses(db.Model):
+    __tablename__ = 'student_courses'
+    student_id = db.Column(db.Integer, db.ForeignKey('students.id'),
+                           primary_key=True)
+    course_id = db.Column(db.Integer, db.ForeignKey('courses.id'),
+                          primary_key=True)
+````
+
+In this example, we have defined three models: `Student`, `Course`, and
+`StudentCourses`. The `Student` and `Course` models have a many-to-many 
+relationship, which is represented by the courses relationship in the 
+`Student` model and the students relationship in the `Course` model. The 
+`StudentCourses` model represents the join table between `Student` and 
+`Course`, and contains foreign keys to both tables.
+
+To create a new student and add them to a course, you could do something like
+this:
+
+````python
+student = Student(name='Alice')
+course = Course(name='Computer Science')
+student.courses.append(course)
+db.session.add(student)
+db.session.commit()
+````
+
+This would create a new student named Alice and a new course named Computer
+Science, and it would add Alice to the course. The changes would be persisted to
+the database when you call `db.session.commit()`.
+
+
+
