@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Call</title>
+</head>
+<body>
+<dl>
+    {% for key in call.__dict__ %}
+        {% if key[0] != '_' %}
+            <dt>{{ key }}</dt>
+            <dd>{{ call.__dict__[key] }}</dd>
+        {% endif %}
+    {% endfor %}
+</dl>
+</body>
+</html>
