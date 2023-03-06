@@ -154,6 +154,8 @@ def non_protected():
     return render_template('non_protected.html')
 
 
+# @app.route('/cart/<int:product_id>', methods=['POST'])
+# @app.route('/cart/<int:product_id>', methods=['DELETE'])
 @app.route('/cart/add/<int:product_id>')
 @login_required
 def add_to_cart(product_id):

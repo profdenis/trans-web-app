@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/05_flask_sessions/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/05_flask_sessions/instance" />
+      <excludeFolder url="file://$MODULE_DIR$/06_flask_mvc/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/06_flask_mvc/instance" />
+      <excludeFolder url="file://$MODULE_DIR$/06b_flask_mvc2/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/06b_flask_mvc2/instance" />
+      <excludeFolder url="file://$MODULE_DIR$/07_flask_migrate/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/07_flask_migrate/instance" />
+      <excludeFolder url="file://$MODULE_DIR$/testStripe2/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/testStripe2/instance" />
+    </content>
     <orderEntry type="jdk" jdkName="Python 3.10 (venv)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

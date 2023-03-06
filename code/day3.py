@@ -1,38 +1,19 @@
-def hello():
-    return 'hello'
+def read_numbers(filename):
+    numbers = []
+    with open(filename, "r") as f:
+        for line in f:
+            # print(line, end="")
+            try:
+                numbers.append(int(line))
+            except ValueError:
+                pass
+                # break
+    return numbers
 
 
-def hello2() -> str:
-    return 'hello'
+numbers = read_numbers("data2.txt")
+print(numbers)
 
+for c in "some string":
+    print(c)
 
-def calculate(x):
-    return x * 3
-
-
-def calculate2(x: int) -> int:
-    return x * 3
-
-
-msg = hello()
-print(msg)
-
-print(hello())
-print(hello)
-
-print(calculate(5))
-print(calculate(5.5))
-print(calculate('Denis'))
-# print(calculate(x))
-
-print(calculate2(5))
-print(calculate2(5.5))
-print(calculate2('Denis'))
-
-answer = input('Enter a number: ')
-x = float(answer)
-print(x)
-
-y = x * 2.5
-print('the answer is : ' + str(y))
-print('the answer is :', y)
