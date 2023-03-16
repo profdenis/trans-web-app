@@ -1,6 +1,6 @@
 id,topic,markdown,html,pdf
 0,Course Outline,00_outline.md,00_outline.html,00_outline.pdf
 1,Python,01_python.md,01_python.html,01_python.pdf
-2,Flask basics,02_flask_basics.md,02_flask_basics.html,02_flask_basics.html
-3,Flask templates,03_flask_templates.md,03_flask_templates.html,03_flask_templates.html
-
+2,Flask basics,02_flask_basics.md,02_flask_basics.html,02_flask_basics.pdf
+3,Flask templates,03_flask_templates.md,03_flask_templates.html,03_flask_templates.pdf
+4,Flask forms,04_flask_forms.md,04_flask_forms.html,04_flask_forms.pdf
